@@ -1,0 +1,53 @@
+.calc-form {
+  padding: 16px;
+  padding-bottom: 100px;
+
+  p {
+    font-size: 18px;
+    font-weight: 800;
+    color: #111827;
+    text-transform: uppercase;
+    letter-spacing: 1px;
+
+    margin-top: 10px;
+    margin-bottom: 10px;
+
+    padding-bottom: 5px;
+    border-bottom: 2px solid #f97316;
+
+    &:first-child {
+      margin-top: 0px;
+    }
+  }
+
+  button {
+    width: 100%;
+    margin-top: 5px;
+    padding: 16px;
+    background-color: #f97316;
+    color: white;
+    font-size: 18px;
+    font-weight: 700;
+    border: none;
+    border-radius: 50px;
+    box-shadow: 0 4px 6px rgba(249, 115, 22, 0.3);
+
+    &:active {
+      transform: scale(0.98);
+      background-color: #ea580c;
+    }
+  }
+
+  .slider-container {
+    display: flex;
+    align-items: center;
+    gap: 15px;
+
+    app-input-container {
+      flex: 1;
+    }
+    mat-slide-toggle {
+      margin-top: 22px;
+    }
+  }
+}

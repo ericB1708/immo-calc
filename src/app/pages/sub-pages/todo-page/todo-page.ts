@@ -6,6 +6,4 @@ import { Component } from '@angular/core';
   templateUrl: './todo-page.html',
   styleUrl: './todo-page.scss',
 })
-export class TodoPage {
-
-}
+export class TodoPageComponent {}

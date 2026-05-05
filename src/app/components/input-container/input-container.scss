@@ -1,0 +1,45 @@
+.input-container {
+  margin-bottom: 10px;
+  display: flex;
+  flex-direction: column;
+
+  p {
+    margin: 0 0 6px 4px;
+    font-weight: 800;
+    font-size: 14px;
+    text-transform: uppercase;
+    color: #111827;
+    letter-spacing: 0.5px;
+  }
+
+  p.active-title {
+    color: #f97316 !important;
+    transition: color 0.3s ease;
+  }
+
+  input {
+    width: 100%;
+    box-sizing: border-box;
+    padding: 14px 18px;
+    font-size: 16px;
+    font-weight: 500;
+    color: #374151;
+    background-color: #ffffff;
+    border: 1px solid #d1d5db;
+    border-radius: 50px;
+    transition: all 0.1s ease-in-out;
+
+    &::placeholder {
+      color: #9ca3af;
+    }
+
+    &:focus {
+      outline: none;
+      border: 2px solid #f97316;
+      background-color: #fff7ed;
+      box-shadow:
+        0 4px 6px -1px rgba(249, 115, 22, 0.1),
+        0 2px 4px -1px rgba(249, 115, 22, 0.06);
+    }
+  }
+}

@@ -1,0 +1,9 @@
+<div class="input-container">
+  <p [class.active-title]="higlightTitle">{{ inputName }}</p>
+  <input
+    [type]="inputType"
+    [value]="value !== null ? value : ''"
+    [placeholder]="placeHolderValue"
+    (change)="onInputChanges($event)"
+  />
+</div>

@@ -6,6 +6,4 @@ import { Component } from '@angular/core';
   templateUrl: './pinned-items.html',
   styleUrl: './pinned-items.scss',
 })
-export class PinnedItems {
-
-}
+export class PinnedItemsComponent {}
