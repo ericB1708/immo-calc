@@ -16,7 +16,7 @@
   font-weight: 900;
   color: #111;
   text-transform: uppercase;
-  border-bottom: 3px solid #e65100;
+  border-bottom: 3px solid #f97316;
   padding-bottom: 6px;
   margin-top: 40px;
   margin-bottom: 20px;
@@ -27,13 +27,25 @@
   font-weight: 800;
   color: #333;
   text-transform: uppercase;
-  border-bottom: 2px solid #e65100;
+  border-bottom: 2px solid #f97316;
   padding-bottom: 4px;
   margin-top: 24px;
   margin-bottom: 16px;
 }
 
-/* Erster Titel ohne Abstand nach oben */
 .result-form > p:first-child {
   margin-top: 0;
+}
+
+.pinned-section {
+  position: sticky;
+  top: 0;
+  z-index: 100;
+  background-color: #f97316;
+
+  margin: -16px -16px 24px -16px;
+  padding: 16px 16px 24px 16px;
+
+  border-bottom: 1px solid #eaeaea;
+  box-shadow: 0 4px 12px rgba(0, 0, 0, 0.03);
 }

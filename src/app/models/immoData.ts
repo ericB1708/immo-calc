@@ -31,3 +31,13 @@ export interface resultImmoData {
   bierdeckelrechnungErgebnisMitInstandhaltungPauschal: number | null;
   direktKosten: number | null;
 }
+
+export interface PinnedData {
+  acronym: string;
+  subtext: string;
+  value: number | null;
+  unit: string;
+  showPlus: boolean;
+  circleColor: 'green' | 'yellow' | 'red' | '';
+  showCircle: boolean;
+}

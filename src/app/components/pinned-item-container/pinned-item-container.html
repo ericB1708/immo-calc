@@ -1,0 +1,12 @@
+<div class="pinned-container">
+  <app-pinned-item
+    *ngFor="let item of pinnedItems"
+    [name]="item.acronym"
+    [subText]="item.subtext"
+    [value]="item.value"
+    [unit]="item.unit"
+    [showPlus]="item.showPlus"
+    [circleColor]="item.circleColor"
+    [showCircle]="item.showCircle"
+  ></app-pinned-item>
+</div>

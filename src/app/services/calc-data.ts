@@ -1,5 +1,5 @@
-import { Injectable, signal } from '@angular/core';
-import { ImmoData, resultImmoData } from '../models/immoData';
+import { computed, Injectable, signal } from '@angular/core';
+import { ImmoData, PinnedData, resultImmoData } from '../models/immoData';
 
 @Injectable({
   providedIn: 'root',
@@ -40,6 +40,145 @@ export class CalcDataService {
   });
 
   public pinnedItemsSignal = signal<string[]>([]);
+
+  public pinnedDisplayItems = computed<PinnedData[]>(() => {
+    const pinnedList = this.pinnedItemsSignal();
+    const listLength = pinnedList.length;
+
+    let returnList: PinnedData[] = [];
+
+    for (let index = 0; index < listLength; index++) {
+      let pinnedItem: PinnedData = {
+        acronym: '',
+        subtext: '',
+        value: null,
+        unit: '',
+        showPlus: false,
+        circleColor: '',
+        showCircle: false,
+      };
+      switch (pinnedList[index]) {
+        case 'faktorCheck':
+          pinnedItem.acronym = 'Faktor-Check';
+          pinnedItem.subtext = this.getFactorText(this.resultImmoDataSignal().faktorCheck);
+          pinnedItem.value = this.resultImmoDataSignal().faktorCheck;
+          pinnedItem.circleColor = this.getFactorColor(this.resultImmoDataSignal().faktorCheck);
+          pinnedItem.showCircle = true;
+          break;
+        case 'bierdeckelOhneInst':
+          pinnedItem.acronym = 'Cashflow (ohne Inst.)';
+          pinnedItem.value =
+            this.resultImmoDataSignal().bierdeckelrechnungErgebnisOhneInstandhaltung;
+          pinnedItem.circleColor = this.getStandardColor(
+            this.resultImmoDataSignal().bierdeckelrechnungErgebnisOhneInstandhaltung,
+          );
+          pinnedItem.showCircle = true;
+          pinnedItem.unit = '€';
+          pinnedItem.showPlus = true;
+          break;
+        case 'bierdeckelMitInstProQm':
+          pinnedItem.acronym = 'Cashflow (mit Inst./m²)';
+          pinnedItem.value =
+            this.resultImmoDataSignal().bierdeckelrechnungErgebnisMitInstandhaltungProQuadratmeter;
+          pinnedItem.circleColor = this.getStandardColor(
+            this.resultImmoDataSignal().bierdeckelrechnungErgebnisMitInstandhaltungProQuadratmeter,
+          );
+          pinnedItem.showCircle = true;
+          pinnedItem.unit = '€';
+          pinnedItem.showPlus = true;
+          break;
+        case 'bierdeckelMitInstPaus':
+          pinnedItem.acronym = 'Cashflow (Inst. pauschal)';
+          pinnedItem.value =
+            this.resultImmoDataSignal().bierdeckelrechnungErgebnisMitInstandhaltungPauschal;
+          pinnedItem.circleColor = this.getStandardColor(
+            this.resultImmoDataSignal().bierdeckelrechnungErgebnisMitInstandhaltungPauschal,
+          );
+          pinnedItem.showCircle = true;
+          pinnedItem.unit = '€';
+          pinnedItem.showPlus = true;
+          break;
+        case 'direktKosten':
+          pinnedItem.acronym = 'Kaufnebenkosten';
+          pinnedItem.value = this.resultImmoDataSignal().direktKosten;
+          pinnedItem.unit = '€';
+          break;
+        case 'kaufpreisAbzueglichEigenkapital':
+          pinnedItem.acronym = 'Darlehensbetrag';
+          pinnedItem.value = this.resultImmoDataSignal().kaufpreisAbzueglichEigenkapital;
+          pinnedItem.unit = '€';
+          break;
+        case 'kaltmiete':
+          pinnedItem.acronym = 'Kaltmiete';
+          pinnedItem.value = this.resultImmoDataSignal().kaltmiete;
+          pinnedItem.unit = '€';
+          break;
+        case 'quadratmeterpreis':
+          pinnedItem.acronym = 'Preis / m²';
+          pinnedItem.value = this.resultImmoDataSignal().quadratmeterpreis;
+          pinnedItem.unit = '€';
+          break;
+        case 'instandhaltungsruecklageQw':
+          pinnedItem.acronym = 'Instandhaltung / m²';
+          pinnedItem.value = this.resultImmoDataSignal().instandhaltungsruecklageQw;
+          pinnedItem.unit = '€';
+          break;
+        case 'instandhaltungsruecklagePauschal':
+          pinnedItem.acronym = 'Instandhaltung (pausch.)';
+          pinnedItem.value = this.resultImmoDataSignal().instandhaltungsruecklagePauschal;
+          pinnedItem.unit = '€';
+          break;
+        case 'bankrateProJahr':
+          pinnedItem.acronym = 'Bankrate (p.a.)';
+          pinnedItem.value = this.resultImmoDataSignal().bankrateProJahr;
+          pinnedItem.unit = '€';
+          break;
+        case 'bankrateProMonat':
+          pinnedItem.acronym = 'Bankrate (mtl.)';
+          pinnedItem.value = this.resultImmoDataSignal().bankrateProMonat;
+          pinnedItem.unit = '€';
+          break;
+        case 'grunderwerbsteuerKosten':
+          pinnedItem.acronym = 'Grunderwerbsteuer';
+          pinnedItem.value = this.resultImmoDataSignal().grunderwerbsteuerKosten;
+          pinnedItem.unit = '€';
+          break;
+        case 'notarUndGrundbuchKosten':
+          pinnedItem.acronym = 'Notar & Grundbuch';
+          pinnedItem.value = this.resultImmoDataSignal().notarUndGrundbuchKosten;
+          pinnedItem.unit = '€';
+          break;
+        case 'maklerKosten':
+          pinnedItem.acronym = 'Maklerprovision';
+          pinnedItem.value = this.resultImmoDataSignal().maklerKosten;
+          pinnedItem.unit = '€';
+          break;
+        default:
+          break;
+      }
+      returnList.push(pinnedItem);
+    }
+    return returnList;
+  });
+
+  getFactorText(value: number | null): string {
+    if (value === null) return '';
+    if (value <= 20) return 'Guter Deal';
+    if (value > 20 && value <= 25) return 'Marktüblich / Okay';
+    return 'Zu Teuer';
+  }
+
+  getStandardColor(value: number | null): 'green' | 'red' | '' {
+    if (value === null) return '';
+    return value >= 0 ? 'green' : 'red';
+  }
+
+  getFactorColor(value: number | null): 'green' | 'yellow' | 'red' | '' {
+    if (value === null) return '';
+    if (value <= 20) return 'green';
+    if (value > 20 && value <= 25) return 'yellow';
+    return 'red';
+  }
 
   public calcResultValues() {
     this.immoDataSignal.update((currentData) => ({

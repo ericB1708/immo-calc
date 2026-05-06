@@ -3,10 +3,11 @@ import { ResultContainerComponent } from '../../../components/result-container/r
 import { CalcDataService } from '../../../services/calc-data';
 import { NgIf } from '@angular/common';
 import { Router } from '@angular/router';
+import { PinnedItemContainer } from "../../../components/pinned-item-container/pinned-item-container";
 
 @Component({
   selector: 'app-result-page',
-  imports: [ResultContainerComponent, NgIf],
+  imports: [ResultContainerComponent, NgIf, PinnedItemContainer],
   templateUrl: './result-page.html',
   styleUrl: './result-page.scss',
 })

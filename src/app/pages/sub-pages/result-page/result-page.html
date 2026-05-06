@@ -1,4 +1,9 @@
 <div class="result-form" *ngIf="calcDataService.immoDataSignal().dataSet">
+  <div *ngIf="calcDataService.pinnedDisplayItems().length > 0" class="pinned-section">
+    <app-pinned-item-container
+      [pinnedItems]="calcDataService.pinnedDisplayItems()"
+    ></app-pinned-item-container>
+  </div>
   <p class="main-heading">Wichtige Ergebnisse</p>
   <app-result-container
     name="Faktor-Check"
@@ -12,7 +17,7 @@
     unit=""
   ></app-result-container>
   <app-result-container
-    name="Bierdeckelrechnung Ergebnis ohne Instandhaltung : "
+    name="Cashflow (ohne Instandhaltung)"
     [value]="calcDataService.resultImmoDataSignal().bierdeckelrechnungErgebnisOhneInstandhaltung"
     [isPinnable]="true"
     [showCircle]="true"
@@ -27,7 +32,7 @@
   ></app-result-container>
   <app-result-container
     *ngIf="!calcDataService.immoDataSignal().instandhaltungisPauschal"
-    name="Bierdeckelrechnung Ergebnis mit  Instandhaltung pro Quadratmeter : "
+    name="Cashflow (mit Instandhaltung/m²)"
     [value]="
       calcDataService.resultImmoDataSignal()
         .bierdeckelrechnungErgebnisMitInstandhaltungProQuadratmeter
@@ -46,7 +51,7 @@
   ></app-result-container>
   <app-result-container
     *ngIf="calcDataService.immoDataSignal().instandhaltungisPauschal"
-    name="Bierdeckelrechnung Ergebnis mit  Instandhaltung pauschal : "
+    name="Cashflow (Instandhaltung pauschal)"
     [value]="
       calcDataService.resultImmoDataSignal().bierdeckelrechnungErgebnisMitInstandhaltungPauschal
     "
@@ -62,7 +67,7 @@
     [showPlus]="true"
   ></app-result-container>
   <app-result-container
-    name="Direktkosten"
+    name="Kaufnebenkosten"
     [value]="calcDataService.resultImmoDataSignal().direktKosten"
     [isPinnable]="true"
     [showCircle]="false"
@@ -72,7 +77,7 @@
   <p class="main-heading">Zwischenergebnisse</p>
   <p class="sub-heading">Hausinformationskosten</p>
   <app-result-container
-    name="Kaufkosten abzüglich Eigenkapital"
+    name="Darlehensbetrag"
     [value]="calcDataService.resultImmoDataSignal().kaufpreisAbzueglichEigenkapital"
     [isPinnable]="true"
     [showCircle]="false"
@@ -88,7 +93,7 @@
     (pinned)="calcDataService.togglePin('kaltmiete')"
   ></app-result-container>
   <app-result-container
-    name="Quadratmeterpreis"
+    name="Kaufpreis / m²"
     [value]="calcDataService.resultImmoDataSignal().quadratmeterpreis"
     [isPinnable]="true"
     [showCircle]="false"
@@ -98,7 +103,7 @@
   <p class="sub-heading">Instandhaltungkosten</p>
   <app-result-container
     *ngIf="!calcDataService.immoDataSignal().instandhaltungisPauschal"
-    name="Instandhaltungsrücklage"
+    name="Rücklage / m²"
     [value]="calcDataService.resultImmoDataSignal().instandhaltungsruecklageQw"
     [isPinnable]="true"
     [showCircle]="false"
@@ -107,7 +112,7 @@
   ></app-result-container>
   <app-result-container
     *ngIf="calcDataService.immoDataSignal().instandhaltungisPauschal"
-    name="Instandhaltungsrücklage pauschal"
+    name="Instandhaltung (pauschal)"
     [value]="calcDataService.resultImmoDataSignal().instandhaltungsruecklagePauschal"
     [isPinnable]="true"
     [showCircle]="false"
@@ -116,7 +121,7 @@
   ></app-result-container>
   <p class="sub-heading">Bankkosten</p>
   <app-result-container
-    name="Bankrate pro Jahr"
+    name="Bankrate (pro Jahr)"
     [value]="calcDataService.resultImmoDataSignal().bankrateProJahr"
     [isPinnable]="true"
     [showCircle]="false"
@@ -124,7 +129,7 @@
     (pinned)="calcDataService.togglePin('bankrateProJahr')"
   ></app-result-container>
   <app-result-container
-    name="Bankrate pro Monat"
+    name="Bankrate (monatlich)"
     [value]="calcDataService.resultImmoDataSignal().bankrateProMonat"
     [isPinnable]="true"
     [showCircle]="false"
@@ -149,7 +154,7 @@
     (pinned)="calcDataService.togglePin('notarUndGrundbuchKosten')"
   ></app-result-container>
   <app-result-container
-    name="Maklergebühren"
+    name="Maklerprovision"
     [value]="calcDataService.resultImmoDataSignal().maklerKosten"
     [isPinnable]="true"
     [showCircle]="false"

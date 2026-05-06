@@ -1,0 +1,30 @@
+<div class="pinned-card">
+  <div class="pin-badge">
+    <mat-icon fontSet="material-icons-outlined">push_pin</mat-icon>
+  </div>
+
+  <p class="title-pinned">{{ name | uppercase }}</p>
+
+  <div class="value-row">
+    <p class="value">
+      <ng-container *ngIf="value !== null">
+        <span *ngIf="showPlus && value > 0">+ </span>
+        {{ formattedValue }}
+        <span *ngIf="unit">{{ unit }}</span>
+      </ng-container>
+      <ng-container *ngIf="value === null">-</ng-container>
+    </p>
+
+    <mat-icon
+      *ngIf="showCircle && value !== null"
+      fontSet="material-icons"
+      [ngClass]="circleColor"
+      class="status-circle"
+      >circle</mat-icon
+    >
+  </div>
+
+  <p class="sub-text" *ngIf="subText" [ngClass]="circleColor">
+    {{ subText }}
+  </p>
+</div>
