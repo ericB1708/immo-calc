@@ -3,7 +3,6 @@
   border-radius: 12px;
   padding: 16px 20px;
   margin-bottom: 12px;
-  /* NEU: Deutlicherer Rahmen und besserer Schatten zum Abheben */
   border: 1px solid #e0e0e0;
   box-shadow: 0 4px 10px rgba(0, 0, 0, 0.08);
   display: flex;
@@ -14,18 +13,18 @@
 .card-header {
   display: flex;
   justify-content: space-between;
-  align-items: flex-start; /* NEU: Pin bleibt oben, auch wenn Text zweizeilig wird */
-  gap: 12px; /* NEU: Etwas Luft zwischen Text und Pin */
+  align-items: flex-start;
+  gap: 12px;
 }
 
 .title-result {
   margin: 0;
-  color: #d84315; /* NEU: Etwas dunkleres Orange */
+  color: #d84315;
   font-weight: 800;
   font-size: 0.85rem;
-  line-height: 1.4; /* NEU: Mehr Platz zwischen den Zeilen bei langem Text */
-  flex: 1; /* NEU: Nimmt den verfügbaren Platz ein */
-  word-wrap: break-word; /* NEU: Verhindert Abschneiden */
+  line-height: 1.4;
+  flex: 1;
+  word-wrap: break-word;
 }
 
 .card-body {
@@ -37,7 +36,7 @@
 .value-wrapper {
   display: flex;
   flex-direction: column;
-  gap: 2px; /* Zarter Abstand zwischen Zahl und Text */
+  gap: 2px;
 }
 
 .sub-text {
@@ -51,18 +50,18 @@
   margin: 0;
   font-size: 1.4rem;
   font-weight: 900;
-  color: #111111; /* NEU: Fast komplett Schwarz (dunkler) */
+  color: #111111;
 }
 
 /* Icons */
 .pin-icon {
-  font-size: 24px; /* NEU: Pin ist größer */
+  font-size: 24px;
   height: 24px;
   width: 24px;
   color: #b0b0b0;
   cursor: pointer;
   transition: all 0.2s ease;
-  flex-shrink: 0; /* GANZ WICHTIG: Verhindert, dass langer Text den Pin zerquetscht */
+  flex-shrink: 0;
 
   &.active-pin {
     color: #e65100 !important;

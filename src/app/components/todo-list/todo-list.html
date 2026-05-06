@@ -1,0 +1,7 @@
+<div class="todo-list-container">
+  <p class="heading-list">{{ heading }}</p>
+  <div class="todos-container" *ngFor="let item of todos">
+    <input type="checkbox" [checked]="item.checked" (change)="onCheckboxChange($event)" />
+    <p>{{ item.name }}</p>
+  </div>
+</div>

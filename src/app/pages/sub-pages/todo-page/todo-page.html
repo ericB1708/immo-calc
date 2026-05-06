@@ -1,1 +1,10 @@
-<p>todo-page works!</p>
+<div class="todo-container">
+  <p>To-do list</p>
+  <app-todo-list
+    *ngFor="let item of todoService.headings()"
+    [heading]="item"
+    [todos]="todoService.todoList().filter((todo) => todo.header === item)"
+  ></app-todo-list>
+  <button>+</button>
+  <button>sort headings</button>
+</div>
