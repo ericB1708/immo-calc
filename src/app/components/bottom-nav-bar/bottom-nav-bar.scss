@@ -29,6 +29,12 @@
   border-top: 3px solid transparent;
   transition: all 0.2s ease-in-out;
 
+  &.disabled {
+    opacity: 0.5;
+    pointer-events: none;
+    cursor: not-allowed;
+  }
+
   &:last-child {
     border-right: none;
   }

@@ -1,1 +1,163 @@
-<p>result-page works!</p>
+<div class="result-form" *ngIf="calcDataService.immoDataSignal().dataSet">
+  <p class="main-heading">Wichtige Ergebnisse</p>
+  <app-result-container
+    name="Faktor-Check"
+    [value]="calcDataService.resultImmoDataSignal().faktorCheck"
+    [isPinnable]="true"
+    [showCircle]="true"
+    [subText]="getFactorText(calcDataService.resultImmoDataSignal().faktorCheck)"
+    [circleColor]="getFactorColor(calcDataService.resultImmoDataSignal().faktorCheck)"
+    [isPinned]="calcDataService.pinnedItemsSignal().includes('faktorCheck')"
+    (pinned)="calcDataService.togglePin('faktorCheck')"
+    unit=""
+  ></app-result-container>
+  <app-result-container
+    name="Bierdeckelrechnung Ergebnis ohne Instandhaltung : "
+    [value]="calcDataService.resultImmoDataSignal().bierdeckelrechnungErgebnisOhneInstandhaltung"
+    [isPinnable]="true"
+    [showCircle]="true"
+    [circleColor]="
+      getStandardColor(
+        calcDataService.resultImmoDataSignal().bierdeckelrechnungErgebnisOhneInstandhaltung
+      )
+    "
+    [isPinned]="calcDataService.pinnedItemsSignal().includes('bierdeckelOhneInst')"
+    (pinned)="calcDataService.togglePin('bierdeckelOhneInst')"
+    [showPlus]="true"
+  ></app-result-container>
+  <app-result-container
+    *ngIf="!calcDataService.immoDataSignal().instandhaltungisPauschal"
+    name="Bierdeckelrechnung Ergebnis mit  Instandhaltung pro Quadratmeter : "
+    [value]="
+      calcDataService.resultImmoDataSignal()
+        .bierdeckelrechnungErgebnisMitInstandhaltungProQuadratmeter
+    "
+    [isPinnable]="true"
+    [showCircle]="true"
+    [circleColor]="
+      getStandardColor(
+        calcDataService.resultImmoDataSignal()
+          .bierdeckelrechnungErgebnisMitInstandhaltungProQuadratmeter
+      )
+    "
+    [isPinned]="calcDataService.pinnedItemsSignal().includes('bierdeckelMitInstProQm')"
+    (pinned)="calcDataService.togglePin('bierdeckelMitInstProQm')"
+    [showPlus]="true"
+  ></app-result-container>
+  <app-result-container
+    *ngIf="calcDataService.immoDataSignal().instandhaltungisPauschal"
+    name="Bierdeckelrechnung Ergebnis mit  Instandhaltung pauschal : "
+    [value]="
+      calcDataService.resultImmoDataSignal().bierdeckelrechnungErgebnisMitInstandhaltungPauschal
+    "
+    [isPinnable]="true"
+    [showCircle]="true"
+    [circleColor]="
+      getStandardColor(
+        calcDataService.resultImmoDataSignal().bierdeckelrechnungErgebnisMitInstandhaltungPauschal
+      )
+    "
+    [isPinned]="calcDataService.pinnedItemsSignal().includes('bierdeckelMitInstPaus')"
+    (pinned)="calcDataService.togglePin('bierdeckelMitInstPaus')"
+    [showPlus]="true"
+  ></app-result-container>
+  <app-result-container
+    name="Direktkosten"
+    [value]="calcDataService.resultImmoDataSignal().direktKosten"
+    [isPinnable]="true"
+    [showCircle]="false"
+    [isPinned]="calcDataService.pinnedItemsSignal().includes('direktKosten')"
+    (pinned)="calcDataService.togglePin('direktKosten')"
+  ></app-result-container>
+  <p class="main-heading">Zwischenergebnisse</p>
+  <p class="sub-heading">Hausinformationskosten</p>
+  <app-result-container
+    name="Kaufkosten abzüglich Eigenkapital"
+    [value]="calcDataService.resultImmoDataSignal().kaufpreisAbzueglichEigenkapital"
+    [isPinnable]="true"
+    [showCircle]="false"
+    [isPinned]="calcDataService.pinnedItemsSignal().includes('kaufpreisAbzueglichEigenkapital')"
+    (pinned)="calcDataService.togglePin('kaufpreisAbzueglichEigenkapital')"
+  ></app-result-container>
+  <app-result-container
+    name="Kaltmiete"
+    [value]="calcDataService.resultImmoDataSignal().kaltmiete"
+    [isPinnable]="true"
+    [showCircle]="false"
+    [isPinned]="calcDataService.pinnedItemsSignal().includes('kaltmiete')"
+    (pinned)="calcDataService.togglePin('kaltmiete')"
+  ></app-result-container>
+  <app-result-container
+    name="Quadratmeterpreis"
+    [value]="calcDataService.resultImmoDataSignal().quadratmeterpreis"
+    [isPinnable]="true"
+    [showCircle]="false"
+    [isPinned]="calcDataService.pinnedItemsSignal().includes('quadratmeterpreis')"
+    (pinned)="calcDataService.togglePin('quadratmeterpreis')"
+  ></app-result-container>
+  <p class="sub-heading">Instandhaltungkosten</p>
+  <app-result-container
+    *ngIf="!calcDataService.immoDataSignal().instandhaltungisPauschal"
+    name="Instandhaltungsrücklage"
+    [value]="calcDataService.resultImmoDataSignal().instandhaltungsruecklageQw"
+    [isPinnable]="true"
+    [showCircle]="false"
+    [isPinned]="calcDataService.pinnedItemsSignal().includes('instandhaltungsruecklageQw')"
+    (pinned)="calcDataService.togglePin('instandhaltungsruecklageQw')"
+  ></app-result-container>
+  <app-result-container
+    *ngIf="calcDataService.immoDataSignal().instandhaltungisPauschal"
+    name="Instandhaltungsrücklage pauschal"
+    [value]="calcDataService.resultImmoDataSignal().instandhaltungsruecklagePauschal"
+    [isPinnable]="true"
+    [showCircle]="false"
+    [isPinned]="calcDataService.pinnedItemsSignal().includes('instandhaltungsruecklagePauschal')"
+    (pinned)="calcDataService.togglePin('instandhaltungsruecklagePauschal')"
+  ></app-result-container>
+  <p class="sub-heading">Bankkosten</p>
+  <app-result-container
+    name="Bankrate pro Jahr"
+    [value]="calcDataService.resultImmoDataSignal().bankrateProJahr"
+    [isPinnable]="true"
+    [showCircle]="false"
+    [isPinned]="calcDataService.pinnedItemsSignal().includes('bankrateProJahr')"
+    (pinned)="calcDataService.togglePin('bankrateProJahr')"
+  ></app-result-container>
+  <app-result-container
+    name="Bankrate pro Monat"
+    [value]="calcDataService.resultImmoDataSignal().bankrateProMonat"
+    [isPinnable]="true"
+    [showCircle]="false"
+    [isPinned]="calcDataService.pinnedItemsSignal().includes('bankrateProMonat')"
+    (pinned)="calcDataService.togglePin('bankrateProMonat')"
+  ></app-result-container>
+  <p class="sub-heading">Direktkosten aufgesplittet</p>
+  <app-result-container
+    name="Grunderwerbsteuer"
+    [value]="calcDataService.resultImmoDataSignal().grunderwerbsteuerKosten"
+    [isPinnable]="true"
+    [showCircle]="false"
+    [isPinned]="calcDataService.pinnedItemsSignal().includes('grunderwerbsteuerKosten')"
+    (pinned)="calcDataService.togglePin('grunderwerbsteuerKosten')"
+  ></app-result-container>
+  <app-result-container
+    name="Notar & Grundbuch"
+    [value]="calcDataService.resultImmoDataSignal().notarUndGrundbuchKosten"
+    [isPinnable]="true"
+    [showCircle]="false"
+    [isPinned]="calcDataService.pinnedItemsSignal().includes('notarUndGrundbuchKosten')"
+    (pinned)="calcDataService.togglePin('notarUndGrundbuchKosten')"
+  ></app-result-container>
+  <app-result-container
+    name="Maklergebühren"
+    [value]="calcDataService.resultImmoDataSignal().maklerKosten"
+    [isPinnable]="true"
+    [showCircle]="false"
+    [isPinned]="calcDataService.pinnedItemsSignal().includes('maklerKosten')"
+    (pinned)="calcDataService.togglePin('maklerKosten')"
+  ></app-result-container>
+</div>
+
+<div *ngIf="!calcDataService.immoDataSignal().dataSet">
+  Keine Daten zur Berechnung oder button Berechenen nicht gedrückt
+</div>

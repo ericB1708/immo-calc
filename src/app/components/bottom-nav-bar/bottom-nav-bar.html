@@ -1,17 +1,19 @@
 <div class="nav-bar-container">
-  <!-- RECHNER -->
   <a routerLink="/main-page/calc" routerLinkActive="active" class="nav-item">
     <mat-icon fontSet="material-icons-outlined">calculate</mat-icon>
     <span>RECHNER</span>
   </a>
 
-  <!-- ERGEBNISSE -->
-  <a routerLink="/main-page/result" routerLinkActive="active" class="nav-item">
+  <a
+    [routerLink]="!calcDataService.immoDataSignal().dataSet ? null : ['/main-page/result']"
+    routerLinkActive="active"
+    class="nav-item"
+    [class.disabled]="!calcDataService.immoDataSignal().dataSet"
+  >
     <mat-icon fontSet="material-icons-outlined">trending_up</mat-icon>
     <span>ERGEBNISSE</span>
   </a>
 
-  <!-- CHECKLISTE -->
   <a routerLink="/main-page/todo" routerLinkActive="active" class="nav-item">
     <mat-icon fontSet="material-icons-outlined">fact_check</mat-icon>
     <span>CHECKLISTE</span>

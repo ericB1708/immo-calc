@@ -1,0 +1,42 @@
+<div class="result-card">
+  <div class="card-header">
+    <p class="title-result">{{ name | uppercase }}</p>
+
+    <mat-icon
+      *ngIf="isPinnable"
+      [class.active-pin]="isPinned"
+      (click)="onPinnedClick()"
+      fontSet="material-icons-outlined"
+      class="pin-icon"
+      >push_pin</mat-icon
+    >
+  </div>
+
+  <div class="card-body">
+    <div class="value-wrapper">
+      <p class="value">
+        <ng-container *ngIf="value !== null">
+          <span *ngIf="showPlus && value > 0">+ </span>
+
+          {{ formattedValue }}
+
+          <span *ngIf="unit">{{ unit }}</span>
+        </ng-container>
+
+        <ng-container *ngIf="value === null">-</ng-container>
+      </p>
+
+      <p class="sub-text" *ngIf="subText" [ngClass]="circleColor">
+        {{ subText }}
+      </p>
+    </div>
+
+    <mat-icon
+      *ngIf="showCircle && value !== null"
+      fontSet="material-icons"
+      [ngClass]="circleColor"
+      class="status-circle"
+      >circle</mat-icon
+    >
+  </div>
+</div>

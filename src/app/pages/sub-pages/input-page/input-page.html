@@ -31,7 +31,7 @@
   <p>Instandhaltung</p>
   <div class="slider-container">
     <app-input-container
-      inputName="Pro QW"
+      inputName="Pro QM"
       inputType="number"
       [placeHolderValue]="2.0"
       [value]="calcDataService.immoDataSignal().instandhaltungProQw"
@@ -93,5 +93,5 @@
     (valueChange)="calcDataService.updateValue('maklerprovision', $event)"
   ></app-input-container>
 
-  <button>BERECHNEN</button>
+  <button (click)="onClickbuttonCalc()">BERECHNEN</button>
 </div>

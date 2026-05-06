@@ -3,6 +3,7 @@ import { InputContainerComponent } from '../../../components/input-container/inp
 import { CalcDataService } from '../../../services/calc-data';
 import { MatSlideToggleModule } from '@angular/material/slide-toggle';
 import { ThemePalette } from '@angular/material/core';
+import { Router } from '@angular/router';
 
 @Component({
   selector: 'app-input-page',
@@ -12,5 +13,10 @@ import { ThemePalette } from '@angular/material/core';
 })
 export class InputPageComponent {
   public calcDataService = inject(CalcDataService);
+  public router = inject(Router);
 
+  onClickbuttonCalc() {
+    this.calcDataService.calcResultValues();
+    this.router.navigate(['/main-page/result']);
+  }
 }
