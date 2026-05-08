@@ -1,0 +1,10 @@
+<h2 mat-dialog-title>Kategorien Sortieren</h2>
+<mat-dialog-content class="sorting-heading-container">
+  <div cdkDropList class="headings-sorting-list" (cdkDropListDropped)="drop($event)">
+    @for (header of headingsList; track header) {
+      <div class="heading-box" cdkDrag>{{ header }}</div>
+    }
+  </div>
+  <button (click)="onClickFinishTodo()">Fertig</button>
+  <button (click)="closeDialog()">Abbrechen</button>
+</mat-dialog-content>

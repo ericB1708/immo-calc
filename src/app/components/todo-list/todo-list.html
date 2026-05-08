@@ -1,7 +1,39 @@
 <div class="todo-list-container">
-  <p class="heading-list">{{ heading }}</p>
+  <div class="heading-container">
+    <p class="heading-list">{{ heading }}</p>
+    <button [matMenuTriggerFor]="headingMenu">
+      <mat-icon fontSet="material-icons-outlined" class="pin-icon">more_vert</mat-icon>
+    </button>
+  </div>
+
+  <mat-menu #headingMenu="matMenu">
+    <button mat-menu-item (click)="onEditHeading()">
+      <mat-icon fontSet="material-icons-outlined">edit</mat-icon>
+      <span>Bearbeiten</span>
+    </button>
+
+    <button mat-menu-item (click)="onDeleteHeading()">
+      <mat-icon fontSet="material-icons-outlined" color="warn">delete</mat-icon>
+      <span style="color: red">Löschen</span>
+    </button>
+  </mat-menu>
+
   <div class="todos-container" *ngFor="let item of todos">
     <input type="checkbox" [checked]="item.checked" (change)="onCheckboxChange($event)" />
     <p>{{ item.name }}</p>
+    <button [matMenuTriggerFor]="todoMenu">
+      <mat-icon fontSet="material-icons-outlined" class="pin-icon">more_vert</mat-icon>
+    </button>
+    <mat-menu #todoMenu="matMenu">
+      <button mat-menu-item (click)="onEditTodo(item)">
+        <mat-icon fontSet="material-icons-outlined">edit</mat-icon>
+        <span>Bearbeiten</span>
+      </button>
+
+      <button mat-menu-item (click)="onDeleteTodo(item)">
+        <mat-icon fontSet="material-icons-outlined" color="warn">delete</mat-icon>
+        <span style="color: red">Löschen</span>
+      </button>
+    </mat-menu>
   </div>
 </div>

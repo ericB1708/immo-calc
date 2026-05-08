@@ -1,0 +1,18 @@
+<h2 mat-dialog-title>Todo erstellen</h2>
+<mat-dialog-content class="create-todo-container">
+  <div class="input-todo-name">
+    <p>Todo Name</p>
+    <input [(ngModel)]="nameTodo" type="text" placeholder="Schimmel" />
+  </div>
+  <div class="select-heading-todo">
+    <p>Kategorie</p>
+    <select [(ngModel)]="selectedOption" name="" id="">
+      <option *ngFor="let heading of immoTodoService.headings()" [value]="heading">
+        {{ heading }}
+      </option>
+    </select>
+  </div>
+  <p *ngIf="!todoCreateCorrect">Name leer oder Kategorie existiert nicht</p>
+  <button (click)="onClickCreateTodo()">Todo hinzufügen</button>
+  <button (click)="closeDialog()">abbrechen</button>
+</mat-dialog-content>
