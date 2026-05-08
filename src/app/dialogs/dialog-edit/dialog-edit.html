@@ -1,1 +1,31 @@
-<p>dialog-edit works!</p>
+<h2 mat-dialog-title>Todo erstellen</h2>
+<mat-dialog-content class="create-todo-container">
+  <div *ngIf="isHeading" class="input-heading-name">
+    <p>Todo Name</p>
+    <input [(ngModel)]="newHeadingName" type="text" />
+  </div>
+  <div *ngIf="!isHeading" class="todo-container">
+    <div class="input-todo-name">
+      <p>Todo Name</p>
+      <input [(ngModel)]="newNameTodo" type="text" />
+    </div>
+    <div class="select-heading-todo">
+      <p>Kategorie</p>
+      <select [(ngModel)]="selectedOption" name="" id="">
+        <option *ngFor="let heading of immoTodoService.headings()" [value]="heading">
+          {{ heading }}
+        </option>
+      </select>
+    </div>
+  </div>
+  <div *ngIf="!isHeading">
+    <p *ngIf="!todoEditCorrect">Name leer oder Kategorie existiert nicht</p>
+    <button (click)="onClickEditTodo()">fertig</button>
+    <button (click)="closeDialog()">abbrechen</button>
+  </div>
+  <div *ngIf="isHeading">
+    <p *ngIf="!headingEditCorrect">Name leer oder existiert schon</p>
+    <button (click)="onClickEditHeading()">fertig</button>
+    <button (click)="closeDialog()">abbrechen</button>
+  </div>
+</mat-dialog-content>

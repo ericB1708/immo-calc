@@ -7,6 +7,7 @@ import { MatDialog } from '@angular/material/dialog';
 import { DialogCreateTodoComponent } from '../../../dialogs/dialog-create-todo/dialog-create-todo';
 import { DialogSortingHeadingsComponent } from '../../../dialogs/dialog-sorting-headings/dialog-sorting-headings';
 import { ImmoTodo } from '../../../models/todo';
+import { DialogEditComponent } from '../../../dialogs/dialog-edit/dialog-edit';
 
 @Component({
   selector: 'app-todo-page',
@@ -40,8 +41,10 @@ export class TodoPageComponent {
     this.todoService.updatetodo(item.id, { checked: item.checked });
   }
   // function for output editHeadingEvent
-  editHeading() {
-    //TODO: open edit Dialog with inputs to let dialog know if it is a heading or todo
+  editHeading(headinName: string) {
+    const dialogRef = this.dialog.open(DialogEditComponent);
+    dialogRef.componentRef?.setInput('isHeading', true);
+    dialogRef.componentRef?.setInput('oldNameHeading', headinName);
   }
   // function for output deleteHeadingEvent
   deleteHeading(heading: string) {
@@ -50,7 +53,9 @@ export class TodoPageComponent {
 
   // function for output editTodoEvent
   editTodo(todo: ImmoTodo) {
-    //TODO: open edit Dialog with inputs to let dialog know if it is a heading or todo
+    const dialogRef = this.dialog.open(DialogEditComponent);
+    dialogRef.componentRef?.setInput('isHeading', false);
+    dialogRef.componentRef?.setInput('oldTodo', todo);
   }
 
   // function for output deleteTodoEvent

@@ -79,11 +79,16 @@ export class TodoServices {
     return groups;
   });
 
-  public createHeading(headingName: string) {
+  public createHeading(headingName: string): boolean {
     if (headingName != '') {
       if (!this.headings().includes(headingName)) {
         this.addHeading(headingName);
+        return true;
+      } else {
+        return false;
       }
+    } else {
+      return false;
     }
   }
 
@@ -106,6 +111,12 @@ export class TodoServices {
         }
         return item;
       }),
+    );
+  }
+
+  public updateHeading(oldHeadingName: string, newHeadingName: string) {
+    this.headings.update((currentHeadings) =>
+      currentHeadings.map((item) => (item === oldHeadingName ? newHeadingName : item)),
     );
   }
 

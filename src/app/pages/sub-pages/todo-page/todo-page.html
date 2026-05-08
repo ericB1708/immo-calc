@@ -4,6 +4,11 @@
     *ngFor="let item of todoService.headings()"
     [heading]="item"
     [todos]="todoService.groupedTodos()[item]"
+    (changeCheckItem)="updateTodoCheck($event)"
+    (editTodoEvent)="editTodo($event)"
+    (deleteTodoEvent)="deleteTodo($event)"
+    (editHeadingEvent)="editHeading($event)"
+    (deleteHeadingEvent)="deleteHeading($event)"
   ></app-todo-list>
   <div class="button-widgets">
     <button (click)="onAddsClick()">

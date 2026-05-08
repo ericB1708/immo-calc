@@ -1,18 +1,39 @@
-<h2 mat-dialog-title>Todo erstellen</h2>
+<h2 mat-dialog-title>Todo oder Header erstellen</h2>
 <mat-dialog-content class="create-todo-container">
-  <div class="input-todo-name">
-    <p>Todo Name</p>
-    <input [(ngModel)]="nameTodo" type="text" placeholder="Schimmel" />
+  <mat-slide-toggle
+    color="primary"
+    class="example-margin"
+    [checked]="isHeading"
+    (change)="isHeading = !isHeading"
+    [disabled]="false"
+  >
+  </mat-slide-toggle>
+  <div *ngIf="!isHeading" class="todo-container">
+    <h3>Todo erstellen</h3>
+    <div class="input-todo-name">
+      <p>Todo Name</p>
+      <input [(ngModel)]="nameTodo" type="text" placeholder="Schimmel" />
+    </div>
+    <div class="select-heading-todo">
+      <p>Kategorie</p>
+      <select [(ngModel)]="selectedOption" name="" id="">
+        <option *ngFor="let heading of immoTodoService.headings()" [value]="heading">
+          {{ heading }}
+        </option>
+      </select>
+    </div>
+    <p *ngIf="!todoCreateCorrect">Name leer oder Kategorie existiert nicht</p>
+    <button (click)="onClickCreateTodo()">Todo hinzufügen</button>
+    <button (click)="closeDialog()">abbrechen</button>
   </div>
-  <div class="select-heading-todo">
-    <p>Kategorie</p>
-    <select [(ngModel)]="selectedOption" name="" id="">
-      <option *ngFor="let heading of immoTodoService.headings()" [value]="heading">
-        {{ heading }}
-      </option>
-    </select>
+  <div *ngIf="isHeading" class="header-container">
+    <h3>Kategorie erstellen</h3>
+    <div class="input-header-name">
+      <p>Header Name</p>
+      <input [(ngModel)]="nameHeader" type="text" placeholder="Außenbereich" />
+    </div>
+    <p *ngIf="!todoCreateCorrect">Name leer</p>
+    <button (click)="onClickCreateHeader()">Kategorie hinzufügen</button>
+    <button (click)="closeDialog()">abbrechen</button>
   </div>
-  <p *ngIf="!todoCreateCorrect">Name leer oder Kategorie existiert nicht</p>
-  <button (click)="onClickCreateTodo()">Todo hinzufügen</button>
-  <button (click)="closeDialog()">abbrechen</button>
 </mat-dialog-content>

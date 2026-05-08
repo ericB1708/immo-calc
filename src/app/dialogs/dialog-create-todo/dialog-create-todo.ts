@@ -8,10 +8,19 @@ import {
   MatDialogTitle,
   MatDialogContent,
 } from '@angular/material/dialog';
+import { MatSlideToggleModule } from '@angular/material/slide-toggle';
 
 @Component({
   selector: 'app-dialog-create-todo',
-  imports: [FormsModule, NgIf, MatDialogClose, MatDialogTitle, MatDialogContent, NgFor],
+  imports: [
+    FormsModule,
+    NgIf,
+    MatDialogClose,
+    MatDialogTitle,
+    MatDialogContent,
+    NgFor,
+    MatSlideToggleModule,
+  ],
   templateUrl: './dialog-create-todo.html',
   styleUrl: './dialog-create-todo.scss',
 })
@@ -20,6 +29,8 @@ export class DialogCreateTodoComponent {
   selectedOption: string =
     this.immoTodoService.headings().length >= 1 ? this.immoTodoService.headings()[0] : '';
   nameTodo: string = '';
+  nameHeader: string = '';
+  isHeading:boolean = false;
 
   todoCreateCorrect: boolean = true;
 
@@ -27,6 +38,15 @@ export class DialogCreateTodoComponent {
 
   onClickCreateTodo() {
     if (this.immoTodoService.createImmoTodo(this.nameTodo, this.selectedOption)) {
+      this.todoCreateCorrect = true;
+      this.closeDialog();
+    } else {
+      this.todoCreateCorrect = false;
+    }
+  }
+
+  onClickCreateHeader() {
+    if (this.immoTodoService.createHeading(this.nameHeader)) {
       this.todoCreateCorrect = true;
       this.closeDialog();
     } else {
