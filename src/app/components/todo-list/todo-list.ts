@@ -15,15 +15,16 @@ import { TodoServices } from '../../services/todo';
 export class TodoListComponent {
   @Input() heading: string = '';
   @Input() todos: ImmoTodo[] = [];
-  @Output() isCheckedChange = new EventEmitter<boolean>();
+  @Output() changeCheckItem = new EventEmitter<ImmoTodo>();
   @Output() editTodoEvent = new EventEmitter<ImmoTodo>();
   @Output() deleteTodoEvent = new EventEmitter<ImmoTodo>();
   @Output() editHeadingEvent = new EventEmitter<string>();
   @Output() deleteHeadingEvent = new EventEmitter<string>();
 
-  onCheckboxChange(event: Event) {
+  onCheckboxChange(event: Event, item: ImmoTodo) {
     const target = event.target as HTMLInputElement;
-    this.isCheckedChange.emit(target.checked);
+    item.checked = target.checked;
+    this.changeCheckItem.emit(item);
   }
 
   onEditHeading() {

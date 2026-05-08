@@ -98,6 +98,17 @@ export class TodoServices {
     }
   }
 
+  public updatetodo(id: number, changes: Partial<ImmoTodo>) {
+    this.todoList.update((currentItems) =>
+      currentItems.map((item) => {
+        if (item.id === id) {
+          return { ...item, ...changes };
+        }
+        return item;
+      }),
+    );
+  }
+
   public createImmoTodo(name: string, heading: string): boolean {
     if (this.headings().includes(heading)) {
       this.addImmoTodo({
@@ -118,6 +129,7 @@ export class TodoServices {
     }
   }
 
+  /*
   public changeHeadingFromTodo(todo: ImmoTodo, heading: string): boolean {
     if (todo.id != -1 && heading != '') {
       if (this.headings().includes(heading)) {
@@ -130,9 +142,9 @@ export class TodoServices {
       }
     }
     return false;
-  }
+  }*/
 
-  public deleteTod(todo: ImmoTodo) {
+  public deleteTodo(todo: ImmoTodo) {
     if (todo.id != -1) {
       this.todoList.update((todoList) => todoList.filter((t) => t.id !== todo.id));
     }

@@ -19,7 +19,7 @@
   </mat-menu>
 
   <div class="todos-container" *ngFor="let item of todos">
-    <input type="checkbox" [checked]="item.checked" (change)="onCheckboxChange($event)" />
+    <input type="checkbox" [checked]="item.checked" (change)="onCheckboxChange($event, item)" />
     <p>{{ item.name }}</p>
     <button [matMenuTriggerFor]="todoMenu">
       <mat-icon fontSet="material-icons-outlined" class="pin-icon">more_vert</mat-icon>
