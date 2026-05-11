@@ -1,10 +1,19 @@
-<h2 mat-dialog-title>Kategorien Sortieren</h2>
+<h2 mat-dialog-title class="custom-dialog-title">Kategorien sortieren</h2>
+
 <mat-dialog-content class="sorting-heading-container">
+  <p class="instruction-text">Ziehe die Kategorien in die gewünschte Reihenfolge.</p>
+
   <div cdkDropList class="headings-sorting-list" (cdkDropListDropped)="drop($event)">
     @for (header of headingsList; track header) {
-      <div class="heading-box" cdkDrag>{{ header }}</div>
+      <div class="heading-box" cdkDrag>
+        <mat-icon fontSet="material-icons-outlined" class="drag-icon">drag_handle</mat-icon>
+        <span class="heading-name">{{ header }}</span>
+      </div>
     }
   </div>
-  <button (click)="onClickFinishTodo()">Fertig</button>
-  <button (click)="closeDialog()">Abbrechen</button>
+
+  <div class="dialog-actions">
+    <button class="btn-cancel" (click)="closeDialog()">Abbrechen</button>
+    <button class="btn-submit" (click)="onClickFinishTodo()">Fertig</button>
+  </div>
 </mat-dialog-content>

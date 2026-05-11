@@ -1,5 +1,6 @@
 <div class="todo-container">
-  <p>To-do list</p>
+  <h1>To-do list</h1>
+
   <app-todo-list
     *ngFor="let item of todoService.headings()"
     [heading]="item"
@@ -10,33 +11,36 @@
     (editHeadingEvent)="editHeading($event)"
     (deleteHeadingEvent)="deleteHeading($event)"
   ></app-todo-list>
-  <div class="button-widgets">
-    <button (click)="onAddsClick()">
-      <mat-icon fontSet="material-icons-outlined" class="pin-icon">add</mat-icon>
-    </button>
-    <button>
-      <mat-icon (click)="onAppsClick()" fontSet="material-icons-outlined" class="pin-icon"
-        >apps</mat-icon
-      >
-    </button>
 
-    <div *ngIf="appsVisible()" class="button-apps">
-      <input
-        type="file"
-        accept=".json"
-        #fileInput
-        style="display: none"
-        (change)="importData($event)"
-      />
-      <button (click)="fileInput.click()">
-        <mat-icon fontSet="material-icons-outlined" class="pin-icon">upload</mat-icon>
-      </button>
-      <button (click)="exportData()">
-        <mat-icon fontSet="material-icons-outlined" class="pin-icon">download</mat-icon>
-      </button>
-      <button (click)="onSortClick()">
-        <mat-icon fontSet="material-icons-outlined" class="pin-icon">sort</mat-icon>
+  <div class="floating-widgets">
+    <div class="apps-row" #appsContainer>
+      <div *ngIf="appsVisible()" class="button-apps-menu">
+        <input
+          type="file"
+          accept=".json"
+          #fileInput
+          style="display: none"
+          (change)="importData($event)"
+        />
+
+        <button class="mini-fab" (click)="fileInput.click()" title="Importieren">
+          <mat-icon fontSet="material-icons-outlined">upload</mat-icon>
+        </button>
+        <button class="mini-fab" (click)="exportData()" title="Exportieren">
+          <mat-icon fontSet="material-icons-outlined">download</mat-icon>
+        </button>
+        <button class="mini-fab" (click)="onSortClick()" title="Sortieren">
+          <mat-icon fontSet="material-icons-outlined">sort</mat-icon>
+        </button>
+      </div>
+
+      <button class="main-fab secondary" (click)="onAppsClick()">
+        <mat-icon fontSet="material-icons-outlined">apps</mat-icon>
       </button>
     </div>
+
+    <button class="main-fab primary" (click)="onAddsClick()">
+      <mat-icon fontSet="material-icons-outlined">add</mat-icon>
+    </button>
   </div>
 </div>

@@ -1,3 +1,103 @@
 .todo-container {
-  padding-bottom: 100px;
+  padding: 20px;
+  padding-bottom: 250px; // WICHTIG: Damit der Text unten nicht von den Buttons verdeckt wird
+  max-width: 600px; // Sieht auf großen Bildschirmen besser aus
+  margin: 0 auto; // Zentriert die App
+  font-family: sans-serif;
+}
+
+h1 {
+  font-size: 24px;
+  margin-bottom: 25px;
+}
+
+/* --- CONTAINER FÜR DIE BUTTONS UNTEN RECHTS --- */
+.floating-widgets {
+  position: fixed;
+  bottom: 90px;
+  right: 25px;
+  display: flex;
+  flex-direction: column;
+  align-items: flex-end; /* Buttons rechtsbündig untereinander */
+  gap: 15px; /* Abstand zwischen Apps-Reihe und Plus-Button */
+  z-index: 99;
+}
+
+/* Reihe für die Apps (Menü + Apps-Button) */
+.apps-row {
+  display: flex;
+  align-items: center;
+  gap: 15px;
+}
+
+/* Die weiße Box mit den kleinen Buttons */
+.button-apps-menu {
+  display: flex;
+  gap: 10px;
+  background-color: white;
+  padding: 8px 12px;
+  border-radius: 30px;
+  box-shadow: 0 4px 12px rgba(0, 0, 0, 0.15);
+  animation: slideIn 0.2s ease-out; /* Kleine Animation beim Aufpoppen */
+}
+
+@keyframes slideIn {
+  from {
+    opacity: 0;
+    transform: translateX(20px);
+  }
+  to {
+    opacity: 1;
+    transform: translateX(0);
+  }
+}
+
+/* --- BUTTON STYLES --- */
+button {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  border: none;
+  cursor: pointer;
+  transition:
+    transform 0.1s,
+    background-color 0.2s;
+
+  &:active {
+    transform: scale(0.92); /* Button wird beim Klicken leicht kleiner (drückt sich ein) */
+  }
+}
+
+/* Die dicken Runden Buttons (Plus & Apps) */
+.main-fab {
+  width: 60px;
+  height: 60px;
+  border-radius: 50%;
+  box-shadow: 0 4px 12px rgba(0, 0, 0, 0.2);
+
+  /* Der Plus Button (Orange) */
+  &.primary {
+    background-color: #f97316;
+    color: white;
+  }
+
+  /* Der Apps Button (Weiß mit orangenem Icon) */
+  &.secondary {
+    background-color: white;
+    color: #f97316;
+  }
+}
+
+/* Die kleinen Buttons im aufklappbaren Menü */
+.mini-fab {
+  width: 40px;
+  height: 40px;
+  border-radius: 50%;
+  background-color: #f5f5f5;
+  color: #555;
+
+  &:hover {
+    background-color: #ffedd5; /* Sehr helles Orange beim drüberfahren */
+    color: #f97316;
+  }
 }

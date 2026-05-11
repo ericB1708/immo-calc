@@ -3,10 +3,11 @@ import { Component, inject } from '@angular/core';
 import { MatDialogContent, MatDialogRef } from '@angular/material/dialog';
 import { TodoServices } from '../../services/todo';
 import { CdkDrag, CdkDragDrop, CdkDropList, moveItemInArray } from '@angular/cdk/drag-drop';
+import { MatIcon } from '@angular/material/icon';
 
 @Component({
   selector: 'app-dialog-sorting-headings',
-  imports: [MatDialogContent, CdkDropList, CdkDrag, NgFor],
+  imports: [MatDialogContent, CdkDropList, CdkDrag, NgFor, MatIcon],
   templateUrl: './dialog-sorting-headings.html',
   styleUrl: './dialog-sorting-headings.scss',
 })

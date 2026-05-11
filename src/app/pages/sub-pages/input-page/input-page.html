@@ -2,28 +2,24 @@
   <p>Objekt & Finanzierung</p>
   <app-input-container
     inputName="Eigenkapital (€)"
-    inputType="number"
     [placeHolderValue]="1000000"
     [value]="calcDataService.immoDataSignal().eigenkapital"
     (valueChange)="calcDataService.updateValue('eigenkapital', $event)"
   ></app-input-container>
   <app-input-container
     inputName="Kaufpreis (€)"
-    inputType="number"
     [placeHolderValue]="578000"
     [value]="calcDataService.immoDataSignal().kaufpreis"
     (valueChange)="calcDataService.updateValue('kaufpreis', $event)"
   ></app-input-container>
   <app-input-container
     inputName="Wohnfläche (m²)"
-    inputType="number"
     [placeHolderValue]="280"
     [value]="calcDataService.immoDataSignal().wohnflaeche"
     (valueChange)="calcDataService.updateValue('wohnflaeche', $event)"
   ></app-input-container>
   <app-input-container
     inputName="Miete/m² (€)"
-    inputType="number"
     [placeHolderValue]="8.5"
     [value]="calcDataService.immoDataSignal().mieteProQm"
     (valueChange)="calcDataService.updateValue('mieteProQm', $event)"
@@ -31,8 +27,7 @@
   <p>Instandhaltung</p>
   <div class="slider-container">
     <app-input-container
-      inputName="Pro QM"
-      inputType="number"
+      inputName="€ Pro QM"
       [placeHolderValue]="2.0"
       [value]="calcDataService.immoDataSignal().instandhaltungProQw"
       [higlightTitle]="!calcDataService.immoDataSignal().instandhaltungisPauschal"
@@ -47,8 +42,7 @@
     >
     </mat-slide-toggle>
     <app-input-container
-      inputName="Pauschal"
-      inputType="number"
+      inputName="€ Pauschal"
       [placeHolderValue]="300"
       [value]="calcDataService.immoDataSignal().instandhaltungPauschal"
       [higlightTitle]="calcDataService.immoDataSignal().instandhaltungisPauschal"
@@ -58,14 +52,12 @@
   <p>Bank</p>
   <app-input-container
     inputName="Zinssatz (%)"
-    inputType="number"
     [placeHolderValue]="4"
     [value]="calcDataService.immoDataSignal().zinssatz"
     (valueChange)="calcDataService.updateValue('zinssatz', $event)"
   ></app-input-container>
   <app-input-container
     inputName="Tilgung (%)"
-    inputType="number"
     [placeHolderValue]="1.5"
     [value]="calcDataService.immoDataSignal().tilgung"
     (valueChange)="calcDataService.updateValue('tilgung', $event)"
@@ -73,21 +65,18 @@
   <p>Kaufnebenkosten</p>
   <app-input-container
     inputName="Grunderwerbsteuer (%)"
-    inputType="number"
     [placeHolderValue]="5"
     [value]="calcDataService.immoDataSignal().grunderwerbsteuer"
     (valueChange)="calcDataService.updateValue('grunderwerbsteuer', $event)"
   ></app-input-container>
   <app-input-container
     inputName="Notar & Grundbuch (%)"
-    inputType="number"
     [placeHolderValue]="2"
     [value]="calcDataService.immoDataSignal().notarUndGrundbuch"
     (valueChange)="calcDataService.updateValue('notarUndGrundbuch', $event)"
   ></app-input-container>
   <app-input-container
     inputName="Maklerprovision (%)"
-    inputType="number"
     [placeHolderValue]="4.2"
     [value]="calcDataService.immoDataSignal().maklerprovision"
     (valueChange)="calcDataService.updateValue('maklerprovision', $event)"

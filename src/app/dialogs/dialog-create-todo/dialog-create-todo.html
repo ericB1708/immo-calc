@@ -1,39 +1,56 @@
-<h2 mat-dialog-title>Todo oder Header erstellen</h2>
+<h2 mat-dialog-title class="custom-dialog-title">Todo / Kategorie erstellen</h2>
+
 <mat-dialog-content class="create-todo-container">
-  <mat-slide-toggle
-    color="primary"
-    class="example-margin"
-    [checked]="isHeading"
-    (change)="isHeading = !isHeading"
-    [disabled]="false"
-  >
-  </mat-slide-toggle>
-  <div *ngIf="!isHeading" class="todo-container">
-    <h3>Todo erstellen</h3>
-    <div class="input-todo-name">
-      <p>Todo Name</p>
-      <input [(ngModel)]="nameTodo" type="text" placeholder="Schimmel" />
+  <div class="toggle-section">
+    <mat-slide-toggle color="primary" [checked]="isHeading" (change)="isHeading = !isHeading">
+      <span class="toggle-text">{{ isHeading ? 'Kategorie Modus' : 'Todo Modus' }}</span>
+    </mat-slide-toggle>
+  </div>
+
+  <div *ngIf="!isHeading" class="form-section">
+    <div class="input-group">
+      <p class="input-label">Todo Name</p>
+      <input
+        [(ngModel)]="nameTodo"
+        type="text"
+        placeholder="z.B. Schimmel prüfen"
+        class="custom-input"
+      />
     </div>
-    <div class="select-heading-todo">
-      <p>Kategorie</p>
-      <select [(ngModel)]="selectedOption" name="" id="">
+
+    <div class="input-group">
+      <p class="input-label">Kategorie auswählen</p>
+      <select [(ngModel)]="selectedOption" class="custom-select">
         <option *ngFor="let heading of immoTodoService.headings()" [value]="heading">
           {{ heading }}
         </option>
       </select>
     </div>
-    <p *ngIf="!todoCreateCorrect">Name leer oder Kategorie existiert nicht</p>
-    <button (click)="onClickCreateTodo()">Todo hinzufügen</button>
-    <button (click)="closeDialog()">abbrechen</button>
-  </div>
-  <div *ngIf="isHeading" class="header-container">
-    <h3>Kategorie erstellen</h3>
-    <div class="input-header-name">
-      <p>Header Name</p>
-      <input [(ngModel)]="nameHeader" type="text" placeholder="Außenbereich" />
+
+    <p *ngIf="!todoCreateCorrect" class="error-message">Bitte fülle alle Felder aus.</p>
+
+    <div class="dialog-actions">
+      <button class="btn-cancel" (click)="closeDialog()">Abbrechen</button>
+      <button class="btn-submit" (click)="onClickCreateTodo()">Todo hinzufügen</button>
     </div>
-    <p *ngIf="!todoCreateCorrect">Name leer</p>
-    <button (click)="onClickCreateHeader()">Kategorie hinzufügen</button>
-    <button (click)="closeDialog()">abbrechen</button>
+  </div>
+
+  <div *ngIf="isHeading" class="form-section">
+    <div class="input-group">
+      <p class="input-label">Name der neuen Kategorie</p>
+      <input
+        [(ngModel)]="nameHeader"
+        type="text"
+        placeholder="z.B. Außenbereich"
+        class="custom-input"
+      />
+    </div>
+
+    <p *ngIf="!todoCreateCorrect" class="error-message">Bitte gib einen Namen ein.</p>
+
+    <div class="dialog-actions">
+      <button class="btn-cancel" (click)="closeDialog()">Abbrechen</button>
+      <button class="btn-submit" (click)="onClickCreateHeader()">Kategorie hinzufügen</button>
+    </div>
   </div>
 </mat-dialog-content>

@@ -1,5 +1,5 @@
 import { NgFor, NgIf, NgClass } from '@angular/common';
-import { Component, inject, signal } from '@angular/core';
+import { Component, ElementRef, HostListener, inject, signal, ViewChild } from '@angular/core';
 import { TodoListComponent } from '../../../components/todo-list/todo-list';
 import { TodoServices } from '../../../services/todo';
 import { MatIconModule } from '@angular/material/icon';
@@ -20,7 +20,20 @@ export class TodoPageComponent {
 
   appsVisible = signal(false);
 
+  @ViewChild('appsContainer') appsContainer!: ElementRef;
+
   constructor(public dialog: MatDialog) {}
+
+  @HostListener('document:click', ['$event'])
+  onDocumentClick(event: MouseEvent) {
+    // Wenn das Menü sichtbar ist...
+    if (this.appsVisible()) {
+      // ...prüfen wir, ob der Klick AUßERHALB des Containers war
+      if (this.appsContainer && !this.appsContainer.nativeElement.contains(event.target)) {
+        this.appsVisible.set(false); // Menü schließen!
+      }
+    }
+  }
 
   exportData() {
     const exportDataImmoCalc = {
@@ -38,6 +51,7 @@ export class TodoPageComponent {
     a.click();
 
     window.URL.revokeObjectURL(url);
+    this.appsVisible.set(false);
   }
 
   importData(event: any) {
@@ -60,6 +74,7 @@ export class TodoPageComponent {
       reader.readAsText(file);
     }
     event.target.value = '';
+    this.appsVisible.set(false);
   }
 
   onAppsClick() {
@@ -73,6 +88,7 @@ export class TodoPageComponent {
   onSortClick() {
     if (this.todoService.headings().length >= 2) {
       this.dialog.open(DialogSortingHeadingsComponent);
+      this.appsVisible.set(false);
     }
   }
 

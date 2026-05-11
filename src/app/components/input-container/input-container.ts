@@ -8,29 +8,35 @@ import { Component, EventEmitter, Input, Output } from '@angular/core';
 })
 export class InputContainerComponent {
   @Input() inputName!: string;
-  @Input() inputType!: string;
+  //@Input() inputType!: string;
   @Input() value!: number | null;
   @Input() placeHolderValue: number = 0;
   @Input() higlightTitle: boolean = false;
 
   @Output() valueChange = new EventEmitter<number | null>();
 
-  onInputChanges(event: Event) {
-    const inputField = event.target as HTMLInputElement;
-    const rawTextValue = inputField.value;
+  get displayValue(): string {
+    if (this.value === null || this.value === undefined) return '';
 
-    if (rawTextValue === '') {
-      this.valueChange.emit(null);
-      return;
+    const isCurrencyOrPercent = this.inputName.includes('€') || this.inputName.includes('%');
+
+    return new Intl.NumberFormat('de-DE', {
+      minimumFractionDigits: isCurrencyOrPercent ? 2 : 0,
+      maximumFractionDigits: 2,
+    }).format(this.value);
+  }
+
+  onInputChanges(event: any) {
+    let inputValue = event.target.value;
+
+    inputValue = inputValue.replace(/\./g, '').replace(',', '.');
+
+    const numericValue = parseFloat(inputValue);
+
+    if (!isNaN(numericValue)) {
+      this.valueChange.emit(numericValue);
+    } else {
+      this.valueChange.emit(0);
     }
-
-    let newNumberValue = Number(rawTextValue);
-
-    if (newNumberValue < 0) {
-      newNumberValue = 0;
-      inputField.value = '0';
-    }
-
-    this.valueChange.emit(newNumberValue);
   }
 }
