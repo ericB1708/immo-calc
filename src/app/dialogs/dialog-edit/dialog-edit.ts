@@ -1,11 +1,12 @@
 import { NgIf, NgFor } from '@angular/common';
-import { Component, inject, Input } from '@angular/core';
+import { Component, Inject, inject, Input } from '@angular/core';
 import { FormsModule } from '@angular/forms';
 import {
   MatDialogClose,
   MatDialogTitle,
   MatDialogContent,
   MatDialogRef,
+  MAT_DIALOG_DATA,
 } from '@angular/material/dialog';
 import { DialogCreateTodoComponent } from '../dialog-create-todo/dialog-create-todo';
 import { TodoServices } from '../../services/todo';
@@ -19,27 +20,40 @@ import { ImmoTodo } from '../../models/todo';
 })
 export class DialogEditComponent {
   public immoTodoService = inject(TodoServices);
-  selectedOption = this.immoTodoService
-    .headings()
-    .find((item) => item === this.oldHeadingNameOfTodo);
-  @Input() isHeading: boolean = false;
-  @Input() oldNameHeading: string = '';
-  newHeadingName = this.oldNameHeading ? this.oldNameHeading : '';
-  @Input() oldTodo!: ImmoTodo;
-  oldHeadingNameOfTodo: string = !this.isHeading ? this.oldTodo.header : '';
-  newNameTodo: string = !this.isHeading ? this.oldTodo.name : '';
-  newHeadingNameOfTodo: string = !this.isHeading ? this.oldTodo.header : '';
+  selectedOption: string | undefined;
+
+  isHeading: boolean = false;
+  oldNameHeading: string;
+  newHeadingName: string;
+  oldTodo!: ImmoTodo;
+  newNameTodo: string;
 
   todoEditCorrect: boolean = true;
   headingEditCorrect: boolean = true;
 
-  constructor(public dialogRef: MatDialogRef<DialogCreateTodoComponent>) {}
+  constructor(
+    public dialogRef: MatDialogRef<DialogCreateTodoComponent>,
+    @Inject(MAT_DIALOG_DATA)
+    public data: { isHeading: boolean; oldTodo: ImmoTodo; oldNameHeading?: string },
+  ) {
+    this.isHeading = data.isHeading;
+    this.newHeadingName = data.oldNameHeading ? data.oldNameHeading : '';
+    this.oldNameHeading = data.oldNameHeading ? data.oldNameHeading : '';
+    this.oldTodo = data.oldTodo ? data.oldTodo : { name: '', checked: false, header: '', id: -1 };
+    this.newNameTodo = !data.isHeading ? data.oldTodo.name : '';
+    if (!this.isHeading) {
+      this.selectedOption =
+        this.immoTodoService.headings().find((item) => item === data.oldTodo.header) !== undefined
+          ? this.immoTodoService.headings().find((item) => item === data.oldTodo.header)
+          : '';
+    }
+  }
 
   onClickEditTodo() {
     if (this.newNameTodo !== '') {
       this.immoTodoService.updatetodo(this.oldTodo.id, {
         name: this.newNameTodo,
-        header: this.newHeadingNameOfTodo,
+        header: this.selectedOption,
       });
       this.todoEditCorrect = true;
       this.closeDialog();
@@ -52,6 +66,7 @@ export class DialogEditComponent {
     if (this.newHeadingName !== '') {
       this.immoTodoService.updateHeading(this.oldNameHeading, this.newHeadingName);
       this.headingEditCorrect = true;
+      this.closeDialog();
     } else {
       this.headingEditCorrect = false;
     }

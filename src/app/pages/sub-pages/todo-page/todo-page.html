@@ -21,10 +21,17 @@
     </button>
 
     <div *ngIf="appsVisible()" class="button-apps">
-      <button>
-        <mat-icon fontSet="material-icons-outlined" class="pin-icon">sim_card_download</mat-icon>
+      <input
+        type="file"
+        accept=".json"
+        #fileInput
+        style="display: none"
+        (change)="importData($event)"
+      />
+      <button (click)="fileInput.click()">
+        <mat-icon fontSet="material-icons-outlined" class="pin-icon">upload</mat-icon>
       </button>
-      <button>
+      <button (click)="exportData()">
         <mat-icon fontSet="material-icons-outlined" class="pin-icon">download</mat-icon>
       </button>
       <button (click)="onSortClick()">

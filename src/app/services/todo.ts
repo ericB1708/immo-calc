@@ -1,67 +1,90 @@
 import { ImmoTodo } from './../models/todo';
-import { computed, Injectable, signal } from '@angular/core';
+import { computed, effect, Injectable, signal } from '@angular/core';
 
 @Injectable({
   providedIn: 'root',
 })
 export class TodoServices {
-  public todoList = signal<ImmoTodo[]>([
-    {
-      id: Date.now(),
-      name: 'Zustand Dach',
-      checked: false,
-      header: 'aussenbereich',
-    },
-    {
-      id: Date.now(),
-      name: 'Fassade prüfen (rissfrei)',
-      checked: false,
-      header: 'aussenbereich',
-    },
-    {
-      id: Date.now(),
-      name: 'Feuchtigkeit im Keller prüfen',
-      checked: false,
-      header: 'innenbereich',
-    },
-    {
-      id: Date.now(),
-      name: 'Fenster',
-      checked: false,
-      header: 'aussenbereich',
-    },
-    {
-      id: Date.now(),
-      name: 'Schimmel',
-      checked: false,
-      header: 'innenbereich',
-    },
-    {
-      id: Date.now(),
-      name: 'Elektrik',
-      checked: false,
-      header: 'innenbereich',
-    },
-    {
-      id: Date.now(),
-      name: 'Wasser/Rohre',
-      checked: false,
-      header: 'innenbereich',
-    },
-    {
-      id: Date.now(),
-      name: 'Internet/Netz',
-      checked: false,
-      header: 'sonstiges',
-    },
-  ]);
-  public headings = signal<string[]>([
-    'aussenbereich',
-    'dachgeschoss',
-    'innenbereich',
-    'sanitäranlagen',
-    'sonstiges',
-  ]);
+  public todoList = signal<ImmoTodo[]>([]);
+  public headings = signal<string[]>([]);
+
+  constructor() {
+    const saveTodos = localStorage.getItem('immo_todso');
+    const saveHeadings = localStorage.getItem('immo_headings');
+
+    if (saveTodos && saveHeadings) {
+      this.todoList.set(JSON.parse(saveTodos));
+      this.headings.set(JSON.parse(saveHeadings));
+    } else {
+      this.initializeArrays();
+    }
+
+    effect(() => {
+      localStorage.setItem('immo_todso', JSON.stringify(this.todoList()));
+      localStorage.setItem('immo_headings', JSON.stringify(this.headings()));
+    });
+  }
+
+  public initializeArrays() {
+    this.headings.set([
+      'aussenbereich',
+      'dachgeschoss',
+      'innenbereich',
+      'sanitäranlagen',
+      'sonstiges',
+    ]);
+
+    this.todoList.set([
+      {
+        id: 1,
+        name: 'Zustand Dach',
+        checked: false,
+        header: 'aussenbereich',
+      },
+      {
+        id: 2,
+        name: 'Fassade prüfen (rissfrei)',
+        checked: false,
+        header: 'aussenbereich',
+      },
+      {
+        id: 3,
+        name: 'Feuchtigkeit im Keller prüfen',
+        checked: false,
+        header: 'innenbereich',
+      },
+      {
+        id: 4,
+        name: 'Fenster',
+        checked: false,
+        header: 'aussenbereich',
+      },
+      {
+        id: 5,
+        name: 'Schimmel',
+        checked: false,
+        header: 'innenbereich',
+      },
+      {
+        id: 6,
+        name: 'Elektrik',
+        checked: false,
+        header: 'innenbereich',
+      },
+      {
+        id: 7,
+        name: 'Wasser/Rohre',
+        checked: false,
+        header: 'innenbereich',
+      },
+      {
+        id: 8,
+        name: 'Internet/Netz',
+        checked: false,
+        header: 'sonstiges',
+      },
+    ]);
+  }
 
   public groupedTodos = computed(() => {
     const todos = this.todoList();

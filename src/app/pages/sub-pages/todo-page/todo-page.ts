@@ -22,6 +22,46 @@ export class TodoPageComponent {
 
   constructor(public dialog: MatDialog) {}
 
+  exportData() {
+    const exportDataImmoCalc = {
+      todos: this.todoService.todoList(),
+      headings: this.todoService.headings(),
+    };
+
+    const jsonString = JSON.stringify(exportDataImmoCalc, null, 2);
+
+    const blob = new Blob([jsonString], { type: 'application/json' });
+    const url = window.URL.createObjectURL(blob);
+    const a = document.createElement('a');
+    a.href = url;
+    a.download = `immo-todos-backup-${Date.now()}.json`;
+    a.click();
+
+    window.URL.revokeObjectURL(url);
+  }
+
+  importData(event: any) {
+    const file = event.target.files[0];
+
+    if (file) {
+      const reader = new FileReader();
+
+      reader.onload = (e: any) => {
+        try {
+          const importedData = JSON.parse(e.target.result);
+          if (importedData.todos && importedData.headings) {
+            this.todoService.todoList.set(importedData.todos);
+            this.todoService.headings.set(importedData.headings);
+          } else {
+          }
+        } catch (error) {}
+      };
+
+      reader.readAsText(file);
+    }
+    event.target.value = '';
+  }
+
   onAppsClick() {
     this.appsVisible.set(!this.appsVisible());
   }
@@ -42,9 +82,12 @@ export class TodoPageComponent {
   }
   // function for output editHeadingEvent
   editHeading(headinName: string) {
-    const dialogRef = this.dialog.open(DialogEditComponent);
-    dialogRef.componentRef?.setInput('isHeading', true);
-    dialogRef.componentRef?.setInput('oldNameHeading', headinName);
+    const dialogRef = this.dialog.open(DialogEditComponent, {
+      data: {
+        isHeading: true,
+        oldNameHeading: headinName,
+      },
+    });
   }
   // function for output deleteHeadingEvent
   deleteHeading(heading: string) {
@@ -53,9 +96,12 @@ export class TodoPageComponent {
 
   // function for output editTodoEvent
   editTodo(todo: ImmoTodo) {
-    const dialogRef = this.dialog.open(DialogEditComponent);
-    dialogRef.componentRef?.setInput('isHeading', false);
-    dialogRef.componentRef?.setInput('oldTodo', todo);
+    const dialogRef = this.dialog.open(DialogEditComponent, {
+      data: {
+        isHeading: false,
+        oldTodo: todo,
+      },
+    });
   }
 
   // function for output deleteTodoEvent
