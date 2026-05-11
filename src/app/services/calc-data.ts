@@ -6,17 +6,17 @@ import { ImmoData, PinnedData, resultImmoData } from '../models/immoData';
 })
 export class CalcDataService {
   public immoDataSignal = signal<ImmoData>({
-    eigenkapital: 100000,
-    kaufpreis: 597000,
-    wohnflaeche: 284,
-    mieteProQm: 8.5,
-    zinssatz: 4,
-    tilgung: 1.5,
-    grunderwerbsteuer: 5,
-    notarUndGrundbuch: 2,
-    maklerprovision: 4.2,
-    instandhaltungProQw: 2.0,
-    instandhaltungPauschal: 250,
+    eigenkapital: null,
+    kaufpreis: null,
+    wohnflaeche: null,
+    mieteProQm: null,
+    zinssatz: null,
+    tilgung: null,
+    grunderwerbsteuer: null,
+    notarUndGrundbuch: null,
+    maklerprovision: null,
+    instandhaltungProQw: null,
+    instandhaltungPauschal: null,
     instandhaltungisPauschal: false,
     dataSet: false,
   });
