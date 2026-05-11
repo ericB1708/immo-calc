@@ -1,4 +1,4 @@
-/* --- ALLGEMEINES DIALOG STYLING --- */
+
 .custom-dialog-title {
   padding-left: 20px;
   margin-top: 15px;
@@ -13,8 +13,8 @@
   flex-direction: column;
   padding-top: 5px;
   padding-bottom: 20px;
-  max-height: 70vh; /* Dialog wird maximal 70% der Bildschirmhöhe groß */
-  overflow-y: auto; /* Schaltet das vertikale Scrollen ein */
+  max-height: 70vh;
+  overflow-y: auto;
   overflow-x: hidden;
 }
 
@@ -25,11 +25,11 @@
   margin-bottom: 20px;
 }
 
-/* --- LISTEN STYLING --- */
+
 .headings-sorting-list {
   display: flex;
   flex-direction: column;
-  gap: 10px; /* Abstand zwischen den Kategorien */
+  gap: 10px;
   margin-bottom: 25px;
 }
 
@@ -45,7 +45,7 @@
   text-transform: uppercase;
   font-size: 14px;
   letter-spacing: 0.5px;
-  cursor: grab; /* Zeigt eine offene Hand als Mauszeiger */
+  cursor: grab;
   transition: background-color 0.2s;
 
   &:hover {
@@ -53,7 +53,7 @@
   }
 
   &:active {
-    cursor: grabbing; /* Zeigt eine geschlossene Hand beim Klicken */
+    cursor: grabbing;
   }
 
   .drag-icon {
@@ -62,47 +62,46 @@
   }
 }
 
-/* --- CDK DRAG & DROP EFFEKTE (Die Magie!) --- */
 
-/* 1. Das Element, das du gerade in der Hand hältst und ziehst */
+
+
 .cdk-drag-preview {
   box-sizing: border-box;
   border-radius: 8px;
   background-color: #ffffff;
-  border: 2px solid #f97316; /* Oranger Rahmen beim Ziehen */
-  box-shadow: 0 8px 20px rgba(249, 115, 22, 0.25); /* Oranger Schatten */
+  border: 2px solid #f97316;
+  box-shadow: 0 8px 20px rgba(249, 115, 22, 0.25);
   display: flex;
   align-items: center;
   padding: 12px 15px;
   font-weight: 600;
   text-transform: uppercase;
   font-size: 14px;
-  color: #f97316; /* Text wird orange */
+  color: #f97316;
 
   .drag-icon {
-    color: #f97316; /* Icon wird orange */
+    color: #f97316;
     margin-right: 15px;
   }
 }
 
-/* 2. Der leere Platz, an dem das Element landen wird */
+
 .cdk-drag-placeholder {
   opacity: 0.5;
   border: 2px dashed #ccc;
   background: transparent;
-  color: transparent; /* Versteckt den Text im Platzhalter */
+  color: transparent;
 
   .drag-icon {
     opacity: 0;
   }
 }
 
-/* 3. Weiche Animation, wenn die anderen Elemente Platz machen */
 .cdk-drop-list-dragging .heading-box:not(.cdk-drag-placeholder) {
   transition: transform 250ms cubic-bezier(0, 0, 0.2, 1);
 }
 
-/* --- BUTTONS --- */
+
 .dialog-actions {
   display: flex;
   justify-content: flex-end;

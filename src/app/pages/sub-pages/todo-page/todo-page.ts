@@ -26,9 +26,7 @@ export class TodoPageComponent {
 
   @HostListener('document:click', ['$event'])
   onDocumentClick(event: MouseEvent) {
-    // Wenn das Menü sichtbar ist...
     if (this.appsVisible()) {
-      // ...prüfen wir, ob der Klick AUßERHALB des Containers war
       if (this.appsContainer && !this.appsContainer.nativeElement.contains(event.target)) {
         this.appsVisible.set(false); // Menü schließen!
       }

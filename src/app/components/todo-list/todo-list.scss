@@ -2,26 +2,26 @@
   margin-bottom: 20px;
 }
 
-/* --- KATEGORIE-ÜBERSCHRIFT --- */
+
 .heading-container {
   display: flex;
   align-items: center;
-  border-bottom: 1px solid #e0e0e0; // Graue Linie unten
+  border-bottom: 1px solid #e0e0e0; 
   padding-bottom: 5px;
   margin-top: 20px;
 
   .heading-list {
-    flex-grow: 1; // Schiebt den Button nach rechts
+    flex-grow: 1; 
     font-weight: bold;
-    text-transform: uppercase; // Alles groß schreiben
-    color: #f97316; // Dein Orange!
+    text-transform: uppercase; 
+    color: #f97316; 
     margin: 0;
     font-size: 14px;
     letter-spacing: 0.5px;
   }
 }
 
-/* --- TODOS --- */
+
 .todos-container {
   display: flex;
   align-items: center;
@@ -33,17 +33,17 @@
     height: 22px;
     margin-right: 15px;
     cursor: pointer;
-    accent-color: #f97316; /* Macht moderne Browser-Checkboxen orange! */
+    accent-color: #f97316; 
   }
 
   p {
-    flex-grow: 1; // Schiebt den Button nach rechts
+    flex-grow: 1; 
     margin: 0;
     font-size: 16px;
     color: #333;
-    transition: all 0.2s ease; // Weicher Übergang beim Abhaken
+    transition: all 0.2s ease; 
 
-    /* Das passiert, wenn das Item abgehakt ist: */
+
     &.is-checked {
       color: #a0a0a0;
       text-decoration: line-through;
@@ -51,11 +51,11 @@
   }
 }
 
-/* Gemeinsames Styling für die 3-Punkte-Buttons */
+
 .more-btn {
   background: transparent;
   border: none;
-  color: #ccc; // Sehr dezent, damit es nicht stört
+  color: #ccc; 
   cursor: pointer;
   padding: 0;
   display: flex;
@@ -63,6 +63,6 @@
   justify-content: center;
 
   &:hover {
-    color: #f97316; // Wird orange, wenn man mit der Maus drübergeht
+    color: #f97316;
   }
 }

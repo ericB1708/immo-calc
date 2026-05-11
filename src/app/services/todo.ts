@@ -163,20 +163,6 @@ export class TodoServices {
     }
   }
 
-  /*
-  public changeHeadingFromTodo(todo: ImmoTodo, heading: string): boolean {
-    if (todo.id != -1 && heading != '') {
-      if (this.headings().includes(heading)) {
-        this.todoList.update((currentItems) =>
-          currentItems.map((item) => (item.id === todo.id ? { ...item, header: heading } : item)),
-        );
-        return true;
-      } else {
-        return false;
-      }
-    }
-    return false;
-  }*/
 
   public deleteTodo(todo: ImmoTodo) {
     if (todo.id != -1) {
