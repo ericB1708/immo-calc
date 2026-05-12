@@ -1,12 +1,15 @@
-import { computed, Injectable, signal } from '@angular/core';
+import { computed, Injectable, numberAttribute, signal } from '@angular/core';
 import { ImmoData, PinnedData, resultImmoData } from '../models/immoData';
+import { bufferTime } from 'rxjs';
 
 @Injectable({
   providedIn: 'root',
 })
 export class CalcDataService {
+  /*
   public immoDataSignal = signal<ImmoData>({
     eigenkapital: null,
+    eigenkapitalMitKaufnebenkostenDecken: true,
     kaufpreis: null,
     wohnflaeche: null,
     mieteProQm: null,
@@ -19,10 +22,32 @@ export class CalcDataService {
     instandhaltungPauschal: null,
     instandhaltungisPauschal: false,
     dataSet: false,
+  });*/
+
+  public immoDataSignal = signal<ImmoData>({
+    objektTyp: 'haus',
+    eigenkapital: 100000,
+    eigenkapitalMitKaufnebenkostenDecken: true,
+    kaufpreis: 578000,
+    wohnflaeche: 280,
+    mieteProQm: 8.5,
+    zinssatz: 4,
+    tilgung: 1.5,
+    grunderwerbsteuer: 5,
+    notarUndGrundbuch: 2,
+    maklerprovision: 4.2,
+    instandhaltungProQw: 2,
+    instandhaltungPauschal: 300,
+    instandhaltungisPauschal: false,
+    dataSet: false,
+    hausgeld: 200,
+    hausgeldNichtUmlagefaehigProzentaneil: null,
+    hausGeldNichtUmlagefaehigEingabe: null,
+    hausgeldNichtUmlagefaehigisEingabe: false,
   });
 
   public resultImmoDataSignal = signal<resultImmoData>({
-    kaufpreisAbzueglichEigenkapital: null,
+    darlehensbetrag: null,
     kaltmiete: null,
     quadratmeterpreis: null,
     instandhaltungsruecklageQw: null,
@@ -37,6 +62,10 @@ export class CalcDataService {
     bierdeckelrechnungErgebnisMitInstandhaltungProQuadratmeter: null,
     bierdeckelrechnungErgebnisMitInstandhaltungPauschal: null,
     direktKosten: null,
+    darlehensbetragResultInfo: false,
+    darlehensbetragResultInfoText: null,
+    hausGeldNichtUmlagefaehig: null,
+    hausGeldNichtUmlagefaehigWarning: false,
   });
 
   public pinnedItemsSignal = signal<string[]>([]);
@@ -105,7 +134,7 @@ export class CalcDataService {
           break;
         case 'kaufpreisAbzueglichEigenkapital':
           pinnedItem.acronym = 'Darlehensbetrag';
-          pinnedItem.value = this.resultImmoDataSignal().kaufpreisAbzueglichEigenkapital;
+          pinnedItem.value = this.resultImmoDataSignal().darlehensbetrag;
           pinnedItem.unit = '€';
           break;
         case 'kaltmiete':
@@ -153,6 +182,11 @@ export class CalcDataService {
           pinnedItem.value = this.resultImmoDataSignal().maklerKosten;
           pinnedItem.unit = '€';
           break;
+        case 'hausGeldNichtUmlagefaehig':
+          pinnedItem.acronym = 'Hausgeld nicht umlagefähig';
+          pinnedItem.value = this.resultImmoDataSignal().hausGeldNichtUmlagefaehig;
+          pinnedItem.unit = '€';
+          break;
         default:
           break;
       }
@@ -180,26 +214,52 @@ export class CalcDataService {
     return 'red';
   }
 
+  getdarlehensbetragResultInfoTextColor(value: number | null): 'green' | 'orange' | 'red' | '' {
+    if (value === null) return '';
+    if (value == 1) return 'green';
+    if (value == 2) return 'orange';
+    if (value == 3) return 'red';
+    return '';
+  }
+
+  getdarlehensbetragResultInfoText(value: number | null): string {
+    if (value === null) return '';
+    if (value == 1) return 'Kaufnebenkosten komplett gedeckt mit Eigenkapital';
+    if (value == 2) return 'Kaufnebenkosten noch als Eigenkapital notwendig';
+    if (value == 3) return 'Achtung 110% Finanzierung';
+    return '';
+  }
+
   public calcResultValues() {
     this.immoDataSignal.update((currentData) => ({
       ...currentData,
       dataSet: true,
     }));
-    this.calcKaufpreisAbzueglichEigenkapital();
+    this.calcGrunderwerbsteuerKosten();
+    this.calcNotarUndGrundbuchKosten();
+    this.calcMaklerKosten();
+    this.calcDirektKosten();
+    this.darlehensbetrag();
     this.calcKaltmiete();
     this.calcQuadratmeterpreis();
     this.calcInstandhaltungsruecklageQw();
     this.calcInstandhaltungsruecklagePauschal();
     this.calcBankrateProJahr();
     this.calcBankrateProMonat();
-    this.calcGrunderwerbsteuerKosten();
-    this.calcNotarUndGrundbuchKosten();
-    this.calcMaklerKosten();
     this.calcFaktorCheck();
-    this.calcbierdeckelrechnungErgebnisOhneInstandhaltung();
-    this.calcbierdeckelrechnungErgebnisMitInstandhaltungProQuadratmeter();
-    this.calcbierdeckelrechnungErgebnisMitInstandhaltungPauschal();
-    this.calcDirektKosten();
+
+    if (this.immoDataSignal().objektTyp === 'haus') {
+      this.calcbierdeckelrechnungErgebnisOhneInstandhaltung();
+      this.calcbierdeckelrechnungErgebnisMitInstandhaltungProQuadratmeter();
+      this.calcbierdeckelrechnungErgebnisMitInstandhaltungPauschal();
+    }
+
+    if (this.immoDataSignal().objektTyp === 'wohnung') {
+      this.calcHausgeldNichtUmlagefähig();
+      this.calcbierdeckelrechnungErgebnisOhneInstandhaltungWohnung();
+      this.calcbierdeckelrechnungErgebnisMitInstandhaltungProQuadratmeterWohnung();
+      this.calcbierdeckelrechnungErgebnisMitInstandhaltungPauschalWohnung();
+    }
   }
 
   public togglePin(itemKey: string) {
@@ -214,18 +274,70 @@ export class CalcDataService {
     }
   }
 
-  private calcKaufpreisAbzueglichEigenkapital() {
+  private calcHausgeldNichtUmlagefähig() {
     const immoData = this.immoDataSignal();
-
+    let hausgeldNichtUmlagefaehigResult: number | null = null;
+    let warning = false;
+    if (!immoData.hausgeldNichtUmlagefaehigisEingabe) {
+      if (immoData.hausgeldNichtUmlagefaehigProzentaneil !== null && immoData.hausgeld !== null) {
+        hausgeldNichtUmlagefaehigResult =
+          immoData.hausgeld * immoData.hausgeldNichtUmlagefaehigProzentaneil * 0.01;
+      }
+    } else {
+      if (immoData.hausgeld !== null && immoData.hausGeldNichtUmlagefaehigEingabe !== null) {
+        if (immoData.hausgeld > immoData.hausGeldNichtUmlagefaehigEingabe) {
+          hausgeldNichtUmlagefaehigResult = immoData.hausGeldNichtUmlagefaehigEingabe;
+        } else {
+          warning = true;
+        }
+      }
+    }
     this.resultImmoDataSignal.update((currentData) => ({
       ...currentData,
-      kaufpreisAbzueglichEigenkapital:
-        immoData.kaufpreis !== null
-          ? immoData.eigenkapital !== null
-            ? immoData.kaufpreis - immoData.eigenkapital
-            : immoData.kaufpreis
-          : null,
+      hausGeldNichtUmlagefaehig: hausgeldNichtUmlagefaehigResult,
+      hausGeldNichtUmlagefaehigWarning: warning,
     }));
+  }
+
+  private darlehensbetrag() {
+    const immoData = this.immoDataSignal();
+    const currentResultData = this.resultImmoDataSignal();
+    let darlehensbetragResult: number | null = null;
+    let info = false;
+    let infoText: number | null = null;
+
+    if (immoData.kaufpreis !== null && immoData.eigenkapital !== null) {
+      if (immoData.eigenkapitalMitKaufnebenkostenDecken) {
+        if (this.resultImmoDataSignal().direktKosten !== null) {
+          if (currentResultData.direktKosten !== null) {
+            darlehensbetragResult =
+              immoData.kaufpreis + currentResultData.direktKosten - immoData.eigenkapital;
+            if (darlehensbetragResult < 0) {
+              darlehensbetragResult = 0;
+            }
+
+            if (currentResultData.direktKosten > immoData.eigenkapital) {
+              info = true;
+              infoText = 3;
+            } else if (currentResultData.direktKosten <= immoData.eigenkapital) {
+              info = true;
+              infoText = 1;
+            }
+          } else {
+          }
+        }
+      } else {
+        darlehensbetragResult = immoData.kaufpreis - immoData.eigenkapital;
+        info = true;
+        infoText = 2;
+      }
+      this.resultImmoDataSignal.update((currentData) => ({
+        ...currentData,
+        darlehensbetrag: darlehensbetragResult,
+        darlehensbetragResultInfo: info,
+        darlehensbetragResultInfoText: infoText,
+      }));
+    }
   }
   private calcKaltmiete() {
     const immoData = this.immoDataSignal();
@@ -276,31 +388,46 @@ export class CalcDataService {
   private calcBankrateProJahr() {
     const immoData = this.immoDataSignal();
     const resultImmoData = this.resultImmoDataSignal();
+    let resultBankrateProJahr: number | null = null;
 
+    if (
+      immoData.zinssatz !== null &&
+      immoData.tilgung !== null &&
+      resultImmoData.darlehensbetrag !== null
+    ) {
+      if (immoData.kaufpreis !== null && immoData.eigenkapital !== null) {
+        if (immoData.kaufpreis + resultImmoData.darlehensbetrag - immoData.eigenkapital <= 0) {
+          resultBankrateProJahr = 0;
+        } else {
+          resultBankrateProJahr = Number(
+            (
+              (immoData.zinssatz * 0.01 + immoData.tilgung * 0.01) *
+              resultImmoData.darlehensbetrag
+            ).toFixed(2),
+          );
+        }
+      }
+    }
     this.resultImmoDataSignal.update((currentData) => ({
       ...currentData,
-      bankrateProJahr:
-        immoData.zinssatz !== null &&
-        immoData.tilgung !== null &&
-        resultImmoData.kaufpreisAbzueglichEigenkapital !== null
-          ? Number(
-              (
-                (immoData.zinssatz * 0.01 + immoData.tilgung * 0.01) *
-                resultImmoData.kaufpreisAbzueglichEigenkapital
-              ).toFixed(2),
-            )
-          : null,
+      bankrateProJahr: resultBankrateProJahr,
     }));
   }
   private calcBankrateProMonat() {
     const resultImmoData = this.resultImmoDataSignal();
+    let resultBankrateProMonat: number | null = null;
+
+    if (resultImmoData.bankrateProJahr !== null) {
+      if (resultImmoData.bankrateProJahr == 0) {
+        resultBankrateProMonat = 0;
+      } else {
+        resultBankrateProMonat = Number((resultImmoData.bankrateProJahr / 12).toFixed(2));
+      }
+    }
 
     this.resultImmoDataSignal.update((currentData) => ({
       ...currentData,
-      bankrateProMonat:
-        resultImmoData.bankrateProJahr !== null
-          ? Number((resultImmoData.bankrateProJahr / 12).toFixed(2))
-          : null,
+      bankrateProMonat: resultBankrateProMonat,
     }));
   }
   private calcGrunderwerbsteuerKosten() {
@@ -359,6 +486,26 @@ export class CalcDataService {
           : null,
     }));
   }
+
+  private calcbierdeckelrechnungErgebnisOhneInstandhaltungWohnung() {
+    const resultImmoData = this.resultImmoDataSignal();
+
+    this.resultImmoDataSignal.update((currentData) => ({
+      ...currentData,
+      bierdeckelrechnungErgebnisOhneInstandhaltung:
+        resultImmoData.kaltmiete !== null &&
+        resultImmoData.bankrateProMonat !== null &&
+        resultImmoData.hausGeldNichtUmlagefaehig !== null
+          ? Number(
+              (
+                resultImmoData.kaltmiete -
+                resultImmoData.bankrateProMonat -
+                resultImmoData.hausGeldNichtUmlagefaehig
+              ).toFixed(2),
+            )
+          : null,
+    }));
+  }
   private calcbierdeckelrechnungErgebnisMitInstandhaltungProQuadratmeter() {
     const resultImmoData = this.resultImmoDataSignal();
 
@@ -378,6 +525,27 @@ export class CalcDataService {
           : null,
     }));
   }
+  private calcbierdeckelrechnungErgebnisMitInstandhaltungProQuadratmeterWohnung() {
+    const resultImmoData = this.resultImmoDataSignal();
+
+    this.resultImmoDataSignal.update((currentData) => ({
+      ...currentData,
+      bierdeckelrechnungErgebnisMitInstandhaltungProQuadratmeter:
+        resultImmoData.kaltmiete !== null &&
+        resultImmoData.bankrateProMonat !== null &&
+        resultImmoData.instandhaltungsruecklageQw !== null &&
+        resultImmoData.hausGeldNichtUmlagefaehig !== null
+          ? Number(
+              (
+                resultImmoData.kaltmiete -
+                resultImmoData.bankrateProMonat -
+                resultImmoData.instandhaltungsruecklageQw -
+                resultImmoData.hausGeldNichtUmlagefaehig
+              ).toFixed(2),
+            )
+          : null,
+    }));
+  }
   private calcbierdeckelrechnungErgebnisMitInstandhaltungPauschal() {
     const resultImmoData = this.resultImmoDataSignal();
 
@@ -392,6 +560,27 @@ export class CalcDataService {
                 resultImmoData.kaltmiete -
                 resultImmoData.bankrateProMonat -
                 resultImmoData.instandhaltungsruecklagePauschal
+              ).toFixed(2),
+            )
+          : null,
+    }));
+  }
+  private calcbierdeckelrechnungErgebnisMitInstandhaltungPauschalWohnung() {
+    const resultImmoData = this.resultImmoDataSignal();
+
+    this.resultImmoDataSignal.update((currentData) => ({
+      ...currentData,
+      bierdeckelrechnungErgebnisMitInstandhaltungPauschal:
+        resultImmoData.kaltmiete !== null &&
+        resultImmoData.bankrateProMonat !== null &&
+        resultImmoData.instandhaltungsruecklagePauschal !== null &&
+        resultImmoData.hausGeldNichtUmlagefaehig !== null
+          ? Number(
+              (
+                resultImmoData.kaltmiete -
+                resultImmoData.bankrateProMonat -
+                resultImmoData.instandhaltungsruecklagePauschal -
+                resultImmoData.hausGeldNichtUmlagefaehig
               ).toFixed(2),
             )
           : null,
@@ -418,7 +607,7 @@ export class CalcDataService {
     }));
   }
 
-  public updateValue(key: keyof ImmoData, newValue: number | null | boolean) {
+  public updateValue(key: keyof ImmoData, newValue: number | null | boolean | string) {
     this.immoDataSignal.update((actualValue) => {
       return {
         ...actualValue,

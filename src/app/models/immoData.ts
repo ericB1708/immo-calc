@@ -1,5 +1,7 @@
 export interface ImmoData {
+  objektTyp: 'haus' | 'wohnung';
   eigenkapital: number | null;
+  eigenkapitalMitKaufnebenkostenDecken: boolean;
   kaufpreis: number | null;
   wohnflaeche: number | null;
   mieteProQm: number | null;
@@ -12,10 +14,14 @@ export interface ImmoData {
   instandhaltungPauschal: number | null;
   instandhaltungisPauschal: boolean;
   dataSet: boolean;
+  hausgeld: number | null;
+  hausgeldNichtUmlagefaehigProzentaneil: number | null;
+  hausGeldNichtUmlagefaehigEingabe: number | null;
+  hausgeldNichtUmlagefaehigisEingabe: boolean;
 }
 
 export interface resultImmoData {
-  kaufpreisAbzueglichEigenkapital: number | null;
+  darlehensbetrag: number | null;
   kaltmiete: number | null;
   quadratmeterpreis: number | null;
   instandhaltungsruecklageQw: number | null;
@@ -30,6 +36,10 @@ export interface resultImmoData {
   bierdeckelrechnungErgebnisMitInstandhaltungProQuadratmeter: number | null;
   bierdeckelrechnungErgebnisMitInstandhaltungPauschal: number | null;
   direktKosten: number | null;
+  darlehensbetragResultInfo: boolean;
+  darlehensbetragResultInfoText: number | null;
+  hausGeldNichtUmlagefaehig: number | null;
+  hausGeldNichtUmlagefaehigWarning: boolean;
 }
 
 export interface PinnedData {

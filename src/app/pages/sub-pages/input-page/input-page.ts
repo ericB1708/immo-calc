@@ -1,3 +1,4 @@
+import { NgIf } from '@angular/common';
 import { Component, inject } from '@angular/core';
 import { InputContainerComponent } from '../../../components/input-container/input-container';
 import { CalcDataService } from '../../../services/calc-data';
@@ -7,7 +8,7 @@ import { Router } from '@angular/router';
 
 @Component({
   selector: 'app-input-page',
-  imports: [InputContainerComponent, MatSlideToggleModule],
+  imports: [InputContainerComponent, MatSlideToggleModule, NgIf],
   templateUrl: './input-page.html',
   styleUrl: './input-page.scss',
 })
@@ -17,6 +18,8 @@ export class InputPageComponent {
 
   onClickbuttonCalc() {
     this.calcDataService.calcResultValues();
-    this.router.navigate(['/main-page/result']);
+    if (!this.calcDataService.resultImmoDataSignal().hausGeldNichtUmlagefaehigWarning) {
+      this.router.navigate(['/main-page/result']);
+    }
   }
 }

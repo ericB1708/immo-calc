@@ -1,11 +1,53 @@
 <div class="calc-form">
-  <p>Objekt & Finanzierung</p>
+  <div class="type-switch-container">
+    <button
+      class="switch-btn"
+      [class.active]="calcDataService.immoDataSignal().objektTyp === 'haus'"
+      (click)="calcDataService.updateValue('objektTyp', 'haus')"
+    >
+      🏡 HAUS
+    </button>
+    <button
+      class="switch-btn"
+      [class.active]="calcDataService.immoDataSignal().objektTyp === 'wohnung'"
+      (click)="calcDataService.updateValue('objektTyp', 'wohnung')"
+    >
+      🏢 WOHNUNG
+    </button>
+  </div>
+  <h1>Objekt & Finanzierung</h1>
   <app-input-container
     inputName="Eigenkapital (€)"
     [placeHolderValue]="1000000"
     [value]="calcDataService.immoDataSignal().eigenkapital"
     (valueChange)="calcDataService.updateValue('eigenkapital', $event)"
   ></app-input-container>
+
+  <div class="question-row">
+    <span class="question-label">Kaufnebenkosten mit Eigenkapital decken?</span>
+    <div class="toggle-group">
+      <span
+        class="toggle-text"
+        [class.active]="!calcDataService.immoDataSignal().eigenkapitalMitKaufnebenkostenDecken"
+        >Nein</span
+      >
+
+      <mat-slide-toggle
+        color="primary"
+        [checked]="calcDataService.immoDataSignal().eigenkapitalMitKaufnebenkostenDecken"
+        (change)="
+          calcDataService.updateValue('eigenkapitalMitKaufnebenkostenDecken', $event.checked)
+        "
+      ></mat-slide-toggle>
+
+      <span
+        class="toggle-text"
+        [class.active]="calcDataService.immoDataSignal().eigenkapitalMitKaufnebenkostenDecken"
+        >Ja</span
+      >
+    </div>
+  </div>
+
   <app-input-container
     inputName="Kaufpreis (€)"
     [placeHolderValue]="578000"
@@ -24,7 +66,49 @@
     [value]="calcDataService.immoDataSignal().mieteProQm"
     (valueChange)="calcDataService.updateValue('mieteProQm', $event)"
   ></app-input-container>
-  <p>Instandhaltung</p>
+  <h1>Instandhaltung</h1>
+  <app-input-container
+    inputName="Hausgeld (gesamt)"
+    [placeHolderValue]="200"
+    [value]="calcDataService.immoDataSignal().hausgeld"
+    (valueChange)="calcDataService.updateValue('hausgeld', $event)"
+  ></app-input-container>
+
+  <div class="slider-container" *ngIf="calcDataService.immoDataSignal().objektTyp == 'wohnung'">
+    <app-input-container
+      inputName="Nicht umlagefähig (%)"
+      [placeHolderValue]="30"
+      [value]="calcDataService.immoDataSignal().hausgeldNichtUmlagefaehigProzentaneil"
+      [higlightTitle]="!calcDataService.immoDataSignal().hausgeldNichtUmlagefaehigisEingabe"
+      (valueChange)="calcDataService.updateValue('hausgeldNichtUmlagefaehigProzentaneil', $event)"
+    ></app-input-container>
+    <mat-slide-toggle
+      color="primary"
+      class="example-margin"
+      [checked]="calcDataService.immoDataSignal().hausgeldNichtUmlagefaehigisEingabe"
+      (change)="calcDataService.updateValue('hausgeldNichtUmlagefaehigisEingabe', $event.checked)"
+      [disabled]="false"
+    >
+    </mat-slide-toggle>
+    <app-input-container
+      inputName="Nicht umlagefähig (€)"
+      [placeHolderValue]="60"
+      [value]="calcDataService.immoDataSignal().hausGeldNichtUmlagefaehigEingabe"
+      [higlightTitle]="calcDataService.immoDataSignal().hausgeldNichtUmlagefaehigisEingabe"
+      (valueChange)="calcDataService.updateValue('hausGeldNichtUmlagefaehigEingabe', $event)"
+    ></app-input-container>
+  </div>
+  <div
+    *ngIf="
+      calcDataService.resultImmoDataSignal().hausGeldNichtUmlagefaehigWarning &&
+      calcDataService.immoDataSignal().hausgeldNichtUmlagefaehigisEingabe &&
+      calcDataService.immoDataSignal().objektTyp === 'wohnung'
+    "
+    class="warning-box"
+  >
+    <span class="warning-icon">⚠️</span>
+    <span>Das nicht umlagefähige Hausgeld darf nicht höher sein als das gesamte Hausgeld.</span>
+  </div>
   <div class="slider-container">
     <app-input-container
       inputName="€ Pro QM"
@@ -49,7 +133,7 @@
       (valueChange)="calcDataService.updateValue('instandhaltungPauschal', $event)"
     ></app-input-container>
   </div>
-  <p>Bank</p>
+  <h1>Bank</h1>
   <app-input-container
     inputName="Zinssatz (%)"
     [placeHolderValue]="4"
@@ -62,7 +146,7 @@
     [value]="calcDataService.immoDataSignal().tilgung"
     (valueChange)="calcDataService.updateValue('tilgung', $event)"
   ></app-input-container>
-  <p>Kaufnebenkosten</p>
+  <h1>Kaufnebenkosten</h1>
   <app-input-container
     inputName="Grunderwerbsteuer (%)"
     [placeHolderValue]="5"
