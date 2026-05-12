@@ -4,6 +4,7 @@ import { CalcDataService } from '../../../services/calc-data';
 import { NgIf } from '@angular/common';
 import { Router } from '@angular/router';
 import { PinnedItemContainer } from '../../../components/pinned-item-container/pinned-item-container';
+import { PdfExportService } from '../../../services/pdf-export-service';
 
 @Component({
   selector: 'app-result-page',
@@ -13,6 +14,7 @@ import { PinnedItemContainer } from '../../../components/pinned-item-container/p
 })
 export class ResultPageComponent implements OnInit {
   public calcDataService = inject(CalcDataService);
+  private pdfexport = inject(PdfExportService);
   private router = inject(Router);
 
   ngOnInit(): void {
@@ -38,5 +40,9 @@ export class ResultPageComponent implements OnInit {
     if (value <= 20) return 'Guter Deal';
     if (value > 20 && value <= 25) return 'Marktüblich / Okay';
     return 'Zu Teuer';
+  }
+
+  clickDownlaodPdf() {
+    this.pdfexport.generatePdf();
   }
 }

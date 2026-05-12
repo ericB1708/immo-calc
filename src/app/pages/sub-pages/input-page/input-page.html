@@ -68,6 +68,7 @@
   ></app-input-container>
   <h1>Instandhaltung</h1>
   <app-input-container
+    *ngIf="calcDataService.immoDataSignal().objektTyp == 'wohnung'"
     inputName="Hausgeld (gesamt)"
     [placeHolderValue]="200"
     [value]="calcDataService.immoDataSignal().hausgeld"
@@ -165,6 +166,9 @@
     [value]="calcDataService.immoDataSignal().maklerprovision"
     (valueChange)="calcDataService.updateValue('maklerprovision', $event)"
   ></app-input-container>
-
+  <div *ngIf="showValidationError" class="warning-box" style="color: red; margin-bottom: 15px">
+    <span class="warning-icon">⚠️</span>
+    <span>Bitte fülle alle angezeigten Felder aus, um fortzufahren.</span>
+  </div>
   <button (click)="onClickbuttonCalc()">BERECHNEN</button>
 </div>

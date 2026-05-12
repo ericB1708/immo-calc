@@ -66,3 +66,31 @@
     line-height: 1.4;
   }
 }
+
+.download-btn {
+  width: 100%;
+  margin-top: 10px;
+  margin-bottom: 0px;
+  padding: 16px;
+  background-color: #f97316;
+  color: white;
+  font-size: 16px;
+  font-weight: 700;
+  letter-spacing: 0.5px;
+  border: none;
+  border-radius: 50px;
+  box-shadow: 0 4px 6px rgba(249, 115, 22, 0.3);
+  cursor: pointer;
+  transition: all 0.2s ease-in-out;
+
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  gap: 8px;
+
+  &:active {
+    transform: scale(0.98);
+    background-color: #ea580c;
+    box-shadow: 0 2px 4px rgba(249, 115, 22, 0.2);
+  }
+}

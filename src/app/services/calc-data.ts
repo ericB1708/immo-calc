@@ -6,8 +6,8 @@ import { bufferTime } from 'rxjs';
   providedIn: 'root',
 })
 export class CalcDataService {
-  /*
   public immoDataSignal = signal<ImmoData>({
+    objektTyp: 'haus',
     eigenkapital: null,
     eigenkapitalMitKaufnebenkostenDecken: true,
     kaufpreis: null,
@@ -22,25 +22,7 @@ export class CalcDataService {
     instandhaltungPauschal: null,
     instandhaltungisPauschal: false,
     dataSet: false,
-  });*/
-
-  public immoDataSignal = signal<ImmoData>({
-    objektTyp: 'haus',
-    eigenkapital: 100000,
-    eigenkapitalMitKaufnebenkostenDecken: true,
-    kaufpreis: 578000,
-    wohnflaeche: 280,
-    mieteProQm: 8.5,
-    zinssatz: 4,
-    tilgung: 1.5,
-    grunderwerbsteuer: 5,
-    notarUndGrundbuch: 2,
-    maklerprovision: 4.2,
-    instandhaltungProQw: 2,
-    instandhaltungPauschal: 300,
-    instandhaltungisPauschal: false,
-    dataSet: false,
-    hausgeld: 200,
+    hausgeld: null,
     hausgeldNichtUmlagefaehigProzentaneil: null,
     hausGeldNichtUmlagefaehigEingabe: null,
     hausgeldNichtUmlagefaehigisEingabe: false,

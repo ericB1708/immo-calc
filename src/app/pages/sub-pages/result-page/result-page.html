@@ -118,6 +118,7 @@
     (pinned)="calcDataService.togglePin('quadratmeterpreis')"
   ></app-result-container>
   <app-result-container
+    *ngIf="calcDataService.immoDataSignal().objektTyp === 'wohnung'"
     name="Hausgeld nicht Umlagefähig"
     [value]="calcDataService.resultImmoDataSignal().hausGeldNichtUmlagefaehig"
     [isPinnable]="true"
@@ -186,6 +187,7 @@
     [isPinned]="calcDataService.pinnedItemsSignal().includes('maklerKosten')"
     (pinned)="calcDataService.togglePin('maklerKosten')"
   ></app-result-container>
+  <button class="download-btn" (click)="clickDownlaodPdf()">📄 ALS PDF SPEICHERN</button>
 </div>
 
 <div *ngIf="!calcDataService.immoDataSignal().dataSet">
