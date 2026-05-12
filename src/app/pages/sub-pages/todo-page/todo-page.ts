@@ -28,7 +28,7 @@ export class TodoPageComponent {
   onDocumentClick(event: MouseEvent) {
     if (this.appsVisible()) {
       if (this.appsContainer && !this.appsContainer.nativeElement.contains(event.target)) {
-        this.appsVisible.set(false); // Menü schließen!
+        this.appsVisible.set(false);
       }
     }
   }

@@ -8,7 +8,6 @@ import { Component, EventEmitter, Input, Output } from '@angular/core';
 })
 export class InputContainerComponent {
   @Input() inputName!: string;
-  //@Input() inputType!: string;
   @Input() value!: number | null;
   @Input() placeHolderValue: number = 0;
   @Input() higlightTitle: boolean = false;
