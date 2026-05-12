@@ -33,10 +33,15 @@ Dieses Projekt wurde entwickelt mit:
 - **SCSS / CSS** (Styling und responsives Design)
 
 ## 📸 Screenshots
+<img width="1079" height="1919" alt="image" src="https://github.com/user-attachments/assets/7de6d614-ee82-4ecb-a097-69917a48fbd6" />
+<img width="1079" height="1919" alt="image" src="https://github.com/user-attachments/assets/0acf9305-17d3-4ee5-9dc0-11881859c009" />
+<img width="1079" height="1919" alt="image" src="https://github.com/user-attachments/assets/512012b8-ff74-49d5-820f-4043c7cf0164" />
+<img width="1079" height="1917" alt="image" src="https://github.com/user-attachments/assets/c2581d32-2075-4fb6-b540-4225730a540b" />
+<img width="1079" height="1913" alt="image" src="https://github.com/user-attachments/assets/b7444855-f349-4a72-9d6c-d2953fdc737b" />
 
-<img width="1038" height="1754" alt="Screenshot Rechner/Ergebnisse" src="https://github.com/user-attachments/assets/75a012fb-64b6-4294-b8a6-391b33789bf4" />
 
-<img width="384" height="801" alt="Screenshot Checkliste" src="https://github.com/user-attachments/assets/7a9b7dfb-e03c-4493-804b-594a00e4ac5d" />
+
+
 
 ## 🛠️ Direkt zum Rechner
 
