@@ -23,8 +23,7 @@ Automatische Berechnung und übersichtliche Darstellung der KPIs:
 Eine interaktive To-do-Liste direkt in der App, um bei Besichtigungen an alles zu denken (Innenbereich, Dachgeschoss, Sanitäranlagen, etc.). Punkte können abgehakt und erweitert werden.
 
 ## 🚀 Geplante Features (Roadmap)
-- [ ] Erweiterung der Logik speziell für den Wohnungskauf (z.B. nicht umlagefähiges Hausgeld).
-- [ ] Export-Funktion der Ergebnisse als PDF.
+
 
 ## 💻 Tech-Stack
 
