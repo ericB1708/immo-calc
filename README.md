@@ -1,59 +1,49 @@
-# ImmoCalc
+# 🏠 Immobilien Cashflow-Rechner & Besichtigungs-Checkliste
 
-This project was generated using [Angular CLI](https://github.com/angular/angular-cli) version 21.0.5.
+Ein interaktives Web-Tool zur schnellen und detaillierten Berechnung des Cashflows bei Immobilieninvestitionen (aktuell fokussiert auf den Hauskauf, Wohnungskauf in Planung). Zusätzlich bietet die App eine integrierte, anpassbare To-do-Liste für Immobilienbesichtigungen.
 
-## Development server
+## 🌟 Features
 
-To start a local development server, run:
+Die App ist in drei übersichtliche Bereiche (Tabs) unterteilt:
 
-```bash
-ng serve
-```
+### 1. 🧮 Rechner (Dateneingabe)
+Eingabe aller relevanten Parameter für den Immobilienkauf:
+- **Objekt & Finanzierung:** Eigenkapital, Kaufpreis, Wohnfläche, erwartete Miete/m².
+- **Instandhaltung:** Berechnung pro Quadratmeter oder als Pauschalwert.
+- **Bank:** Zinssatz und Tilgung in Prozent.
+- **Kaufnebenkosten:** Flexible Eingabe für Grunderwerbsteuer, Notar & Grundbuch sowie Maklerprovision.
 
-Once the server is running, open your browser and navigate to `http://localhost:4200/`. The application will automatically reload whenever you modify any of the source files.
+### 2. 📈 Ergebnisse (Auswertung)
+Automatische Berechnung und übersichtliche Darstellung der KPIs:
+- **Wichtige Ergebnisse:** Faktor-Check (inkl. Ampelsystem, z.B. "Guter Deal"), Cashflow vor und nach Instandhaltungsrücklagen sowie gesamte Kaufnebenkosten.
+- **Zwischenergebnisse:** Darlehensbetrag, Kaltmiete, Kaufpreis/m², monatliche und jährliche Bankraten.
+- **Kostensplit:** Detaillierte Auflistung der direkten Nebenkosten.
 
-## Code scaffolding
+### 3. ✅ Checkliste (Für die Besichtigung)
+Eine interaktive To-do-Liste direkt in der App, um bei Besichtigungen an alles zu denken (Innenbereich, Dachgeschoss, Sanitäranlagen, etc.). Punkte können abgehakt und erweitert werden.
 
-Angular CLI includes powerful code scaffolding tools. To generate a new component, run:
+## 🚀 Geplante Features (Roadmap)
+- [ ] Erweiterung der Logik speziell für den Wohnungskauf (z.B. nicht umlagefähiges Hausgeld).
+- [ ] Export-Funktion der Ergebnisse als PDF.
 
-```bash
-ng generate component component-name
-```
+## 💻 Tech-Stack
 
-For a complete list of available schematics (such as `components`, `directives`, or `pipes`), run:
+Dieses Projekt wurde entwickelt mit:
+- **TypeScript** (Logik & Berechnungen)
+- **HTML5** (Strukturierung)
+- **SCSS / CSS** (Styling und responsives Design)
 
-```bash
-ng generate --help
-```
+## 📸 Screenshots
 
-## Building
+<img width="1038" height="1754" alt="Screenshot Rechner/Ergebnisse" src="https://github.com/user-attachments/assets/75a012fb-64b6-4294-b8a6-391b33789bf4" />
 
-To build the project run:
+<img width="384" height="801" alt="Screenshot Checkliste" src="https://github.com/user-attachments/assets/7a9b7dfb-e03c-4493-804b-594a00e4ac5d" />
 
-```bash
-ng build
-```
+## 🛠️ Direkt zum Rechner
 
-This will compile your project and store the build artifacts in the `dist/` directory. By default, the production build optimizes your application for performance and speed.
+[Hier geht es zur Live-Version des Immobilien-Rechners](https://ericb1708.github.io/immo-calc/main-page/calc)
 
-## Running unit tests
+## 📄 Lizenz
 
-To execute unit tests with the [Vitest](https://vitest.dev/) test runner, use the following command:
-
-```bash
-ng test
-```
-
-## Running end-to-end tests
-
-For end-to-end (e2e) testing, run:
-
-```bash
-ng e2e
-```
-
-Angular CLI does not come with an end-to-end testing framework by default. You can choose one that suits your needs.
-
-## Additional Resources
-
-For more information on using the Angular CLI, including detailed command references, visit the [Angular CLI Overview and Command Reference](https://angular.dev/tools/cli) page.
+Dieses Projekt ist unter der **GNU General Public License v3.0 (GPLv3)** lizenziert.
+Das bedeutet, der Code darf frei verwendet und verändert werden, solange darauf aufbauende Projekte unter derselben offenen Lizenz veröffentlicht werden. Es wird **keinerlei Haftung** für finanzielle Fehlkalkulationen oder daraus resultierende Schäden übernommen. Die Nutzung des Rechners erfolgt auf eigene Gefahr.
