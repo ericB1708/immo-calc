@@ -45,4 +45,8 @@ export class ResultPageComponent implements OnInit {
   clickDownlaodPdf() {
     this.pdfexport.generatePdf();
   }
+
+  unpinItem(pinName: string) {
+    this.calcDataService.togglePin(pinName);
+  }
 }

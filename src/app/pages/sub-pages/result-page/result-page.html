@@ -2,6 +2,7 @@
   <div *ngIf="calcDataService.pinnedDisplayItems().length > 0" class="pinned-section">
     <app-pinned-item-container
       [pinnedItems]="calcDataService.pinnedDisplayItems()"
+      (newItemEvent)="unpinItem($event)"
     ></app-pinned-item-container>
   </div>
   <p class="main-heading">Wichtige Ergebnisse</p>

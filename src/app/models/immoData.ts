@@ -43,6 +43,7 @@ export interface resultImmoData {
 }
 
 export interface PinnedData {
+  pinnedName: string;
   acronym: string;
   subtext: string;
   value: number | null;

@@ -60,6 +60,7 @@ export class CalcDataService {
 
     for (let index = 0; index < listLength; index++) {
       let pinnedItem: PinnedData = {
+        pinnedName: '',
         acronym: '',
         subtext: '',
         value: null,
@@ -70,6 +71,7 @@ export class CalcDataService {
       };
       switch (pinnedList[index]) {
         case 'faktorCheck':
+          pinnedItem.pinnedName = 'faktorCheck';
           pinnedItem.acronym = 'Faktor-Check';
           pinnedItem.subtext = this.getFactorText(this.resultImmoDataSignal().faktorCheck);
           pinnedItem.value = this.resultImmoDataSignal().faktorCheck;
@@ -77,6 +79,7 @@ export class CalcDataService {
           pinnedItem.showCircle = true;
           break;
         case 'bierdeckelOhneInst':
+          pinnedItem.pinnedName = 'bierdeckelOhneInst';
           pinnedItem.acronym = 'Cashflow (ohne Inst.)';
           pinnedItem.value =
             this.resultImmoDataSignal().bierdeckelrechnungErgebnisOhneInstandhaltung;
@@ -88,6 +91,7 @@ export class CalcDataService {
           pinnedItem.showPlus = true;
           break;
         case 'bierdeckelMitInstProQm':
+          pinnedItem.pinnedName = 'bierdeckelMitInstProQm';
           pinnedItem.acronym = 'Cashflow (mit Inst./m²)';
           pinnedItem.value =
             this.resultImmoDataSignal().bierdeckelrechnungErgebnisMitInstandhaltungProQuadratmeter;
@@ -99,6 +103,7 @@ export class CalcDataService {
           pinnedItem.showPlus = true;
           break;
         case 'bierdeckelMitInstPaus':
+          pinnedItem.pinnedName = 'bierdeckelMitInstPaus';
           pinnedItem.acronym = 'Cashflow (Inst. pauschal)';
           pinnedItem.value =
             this.resultImmoDataSignal().bierdeckelrechnungErgebnisMitInstandhaltungPauschal;
@@ -110,61 +115,73 @@ export class CalcDataService {
           pinnedItem.showPlus = true;
           break;
         case 'direktKosten':
+          pinnedItem.pinnedName = 'direktKosten';
           pinnedItem.acronym = 'Kaufnebenkosten';
           pinnedItem.value = this.resultImmoDataSignal().direktKosten;
           pinnedItem.unit = '€';
           break;
         case 'kaufpreisAbzueglichEigenkapital':
+          pinnedItem.pinnedName = 'kaufpreisAbzueglichEigenkapital';
           pinnedItem.acronym = 'Darlehensbetrag';
           pinnedItem.value = this.resultImmoDataSignal().darlehensbetrag;
           pinnedItem.unit = '€';
           break;
         case 'kaltmiete':
+          pinnedItem.pinnedName = 'kaltmiete';
           pinnedItem.acronym = 'Kaltmiete';
           pinnedItem.value = this.resultImmoDataSignal().kaltmiete;
           pinnedItem.unit = '€';
           break;
         case 'quadratmeterpreis':
+          pinnedItem.pinnedName = 'quadratmeterpreis';
           pinnedItem.acronym = 'Preis / m²';
           pinnedItem.value = this.resultImmoDataSignal().quadratmeterpreis;
           pinnedItem.unit = '€';
           break;
         case 'instandhaltungsruecklageQw':
+          pinnedItem.pinnedName = 'instandhaltungsruecklageQw';
           pinnedItem.acronym = 'Instandhaltung / m²';
           pinnedItem.value = this.resultImmoDataSignal().instandhaltungsruecklageQw;
           pinnedItem.unit = '€';
           break;
         case 'instandhaltungsruecklagePauschal':
+          pinnedItem.pinnedName = 'instandhaltungsruecklagePauschal';
           pinnedItem.acronym = 'Instandhaltung (pausch.)';
           pinnedItem.value = this.resultImmoDataSignal().instandhaltungsruecklagePauschal;
           pinnedItem.unit = '€';
           break;
         case 'bankrateProJahr':
+          pinnedItem.pinnedName = 'bankrateProJahr';
           pinnedItem.acronym = 'Bankrate (p.a.)';
           pinnedItem.value = this.resultImmoDataSignal().bankrateProJahr;
           pinnedItem.unit = '€';
           break;
         case 'bankrateProMonat':
+          pinnedItem.pinnedName = 'bankrateProMonat';
           pinnedItem.acronym = 'Bankrate (mtl.)';
           pinnedItem.value = this.resultImmoDataSignal().bankrateProMonat;
           pinnedItem.unit = '€';
           break;
         case 'grunderwerbsteuerKosten':
+          pinnedItem.pinnedName = 'grunderwerbsteuerKosten';
           pinnedItem.acronym = 'Grunderwerbsteuer';
           pinnedItem.value = this.resultImmoDataSignal().grunderwerbsteuerKosten;
           pinnedItem.unit = '€';
           break;
         case 'notarUndGrundbuchKosten':
+          pinnedItem.pinnedName = 'notarUndGrundbuchKosten';
           pinnedItem.acronym = 'Notar & Grundbuch';
           pinnedItem.value = this.resultImmoDataSignal().notarUndGrundbuchKosten;
           pinnedItem.unit = '€';
           break;
         case 'maklerKosten':
+          pinnedItem.pinnedName = 'maklerKosten';
           pinnedItem.acronym = 'Maklerprovision';
           pinnedItem.value = this.resultImmoDataSignal().maklerKosten;
           pinnedItem.unit = '€';
           break;
         case 'hausGeldNichtUmlagefaehig':
+          pinnedItem.pinnedName = 'hausGeldNichtUmlagefaehig';
           pinnedItem.acronym = 'Hausgeld nicht umlagefähig';
           pinnedItem.value = this.resultImmoDataSignal().hausGeldNichtUmlagefaehig;
           pinnedItem.unit = '€';

@@ -1,6 +1,7 @@
 <div class="pinned-container">
   <app-pinned-item
     *ngFor="let item of pinnedItems"
+    [pinnedName]="item.pinnedName"
     [name]="item.acronym"
     [subText]="item.subtext"
     [value]="item.value"
@@ -8,5 +9,6 @@
     [showPlus]="item.showPlus"
     [circleColor]="item.circleColor"
     [showCircle]="item.showCircle"
+    (newItemEvent)="unpinItem($event)"
   ></app-pinned-item>
 </div>

@@ -1,5 +1,5 @@
 import { NgClass, NgIf, UpperCasePipe } from '@angular/common';
-import { Component, Input } from '@angular/core';
+import { Component, EventEmitter, Input, Output } from '@angular/core';
 import { MatIconModule } from '@angular/material/icon';
 
 @Component({
@@ -9,6 +9,7 @@ import { MatIconModule } from '@angular/material/icon';
   styleUrl: './pinned-item.scss',
 })
 export class PinnedItem {
+  @Input() pinnedName!: string;
   @Input() name!: string;
   @Input() subText: string = '';
   @Input() value!: number | null;
@@ -18,6 +19,12 @@ export class PinnedItem {
 
   @Input() circleColor: 'green' | 'yellow' | 'red' | '' = '';
   @Input() showPlus: boolean = false;
+
+  @Output() newItemEvent = new EventEmitter<string>();
+
+  unpinItem() {
+    this.newItemEvent.emit(this.pinnedName);
+  }
 
   get formattedValue(): string {
     if (this.value === null) return '-';

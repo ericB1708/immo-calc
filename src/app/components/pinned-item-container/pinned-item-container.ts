@@ -1,4 +1,4 @@
-import { Component, Input } from '@angular/core';
+import { Component, EventEmitter, Input, Output } from '@angular/core';
 import { PinnedData } from '../../models/immoData';
 import { PinnedItem } from '../pinned-item/pinned-item';
 import { NgFor } from '@angular/common';
@@ -11,4 +11,9 @@ import { NgFor } from '@angular/common';
 })
 export class PinnedItemContainer {
   @Input() pinnedItems: PinnedData[] = [];
+  @Output() newItemEvent = new EventEmitter<string>();
+
+  unpinItem(pinName: string) {
+    this.newItemEvent.emit(pinName);
+  }
 }
