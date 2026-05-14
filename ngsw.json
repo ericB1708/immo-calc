@@ -1,6 +1,6 @@
 {
   "configVersion": 1,
-  "timestamp": 1778740125267,
+  "timestamp": 1778761213809,
   "index": "/immo-calc/index.html",
   "assetGroups": [
     {
@@ -13,7 +13,7 @@
       "urls": [
         "/immo-calc/favicon.ico",
         "/immo-calc/index.html",
-        "/immo-calc/main-MXTAK2EH.js",
+        "/immo-calc/main-JNUMRIKN.js",
         "/immo-calc/manifest.webmanifest",
         "/immo-calc/styles-HKTPWBS3.css"
       ],
@@ -40,8 +40,8 @@
     "/immo-calc/icons/apple-touch-icon.png": "5120bfee63e41b31e2e1fd2102a41d0b6376ca96",
     "/immo-calc/icons/icon-192x192.png": "2d32c374c8c40de64b10f0b60c244df080c80fb1",
     "/immo-calc/icons/icon-512x512.png": "9a627c686eefbcbc978f2345f250019280bafabd",
-    "/immo-calc/index.html": "9258fbe955b00e18b2bfa5b6d14338027415fb59",
-    "/immo-calc/main-MXTAK2EH.js": "14cbb49db7d6decd33fd0a545086f6ea38d4cf96",
+    "/immo-calc/index.html": "3c6f03b1ea79041db1ffc4d226acd2662805b5ae",
+    "/immo-calc/main-JNUMRIKN.js": "605889e679792f4c2127af3a238e17bc9b935226",
     "/immo-calc/manifest.webmanifest": "fc4b8a51f7423cb37c185d27a0a5b1a8fec73eb2",
     "/immo-calc/styles-HKTPWBS3.css": "83ba90d675eb9326fe604a5f7f7ea5b6e3bcee5f"
   },
