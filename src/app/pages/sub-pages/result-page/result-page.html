@@ -163,6 +163,22 @@
     [isPinned]="calcDataService.pinnedItemsSignal().includes('bankrateProMonat')"
     (pinned)="calcDataService.togglePin('bankrateProMonat')"
   ></app-result-container>
+  <app-result-container
+    name="Abzahlungsdauer (Jahre)"
+    [value]="calcDataService.resultImmoDataSignal().jahresAbzahlung"
+    [isPinnable]="true"
+    [isPinned]="calcDataService.pinnedItemsSignal().includes('jahresAbzahlung')"
+    (pinned)="calcDataService.togglePin('jahresAbzahlung')"
+    unit="Jahre"
+  ></app-result-container>
+  <app-result-container
+    name="Abzahlungsdauer (Monate)"
+    [value]="calcDataService.resultImmoDataSignal().monateAbzahlung"
+    [isPinnable]="true"
+    [isPinned]="calcDataService.pinnedItemsSignal().includes('monateAbzahlung')"
+    (pinned)="calcDataService.togglePin('monateAbzahlung')"
+    unit="Monate"
+  ></app-result-container>
   <p class="sub-heading">Direktkosten aufgesplittet</p>
   <app-result-container
     name="Grunderwerbsteuer"

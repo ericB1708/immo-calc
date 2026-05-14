@@ -48,6 +48,8 @@ export class CalcDataService {
     darlehensbetragResultInfoText: null,
     hausGeldNichtUmlagefaehig: null,
     hausGeldNichtUmlagefaehigWarning: false,
+    monateAbzahlung: null,
+    jahresAbzahlung: null,
   });
 
   public pinnedItemsSignal = signal<string[]>([]);
@@ -186,6 +188,18 @@ export class CalcDataService {
           pinnedItem.value = this.resultImmoDataSignal().hausGeldNichtUmlagefaehig;
           pinnedItem.unit = '€';
           break;
+        case 'jahresAbzahlung':
+          pinnedItem.pinnedName = 'jahresAbzahlung';
+          pinnedItem.acronym = 'Abzahlungsdauer (Jahre)';
+          pinnedItem.value = this.resultImmoDataSignal().jahresAbzahlung;
+          pinnedItem.unit = 'Jhr.';
+          break;
+        case 'monateAbzahlung':
+          pinnedItem.pinnedName = 'monateAbzahlung';
+          pinnedItem.acronym = 'Abzahlungsdauer (Monate)';
+          pinnedItem.value = this.resultImmoDataSignal().monateAbzahlung;
+          pinnedItem.unit = 'Mon.';
+          break;
         default:
           break;
       }
@@ -246,6 +260,8 @@ export class CalcDataService {
     this.calcBankrateProJahr();
     this.calcBankrateProMonat();
     this.calcFaktorCheck();
+    this.calcMonateAbzahlugn();
+    this.calcJahresAbzahlung();
 
     if (this.immoDataSignal().objektTyp === 'haus') {
       this.calcbierdeckelrechnungErgebnisOhneInstandhaltung();
@@ -602,6 +618,29 @@ export class CalcDataService {
                 resultImmoData.maklerKosten
               ).toFixed(2),
             )
+          : null,
+    }));
+  }
+
+  private calcMonateAbzahlugn() {
+    const resultImmoData = this.resultImmoDataSignal();
+
+    this.resultImmoDataSignal.update((currentData) => ({
+      ...currentData,
+      monateAbzahlung:
+        resultImmoData.darlehensbetrag !== null && resultImmoData.bankrateProMonat !== null
+          ? Number((resultImmoData.darlehensbetrag / resultImmoData.bankrateProMonat).toFixed(2))
+          : null,
+    }));
+  }
+  private calcJahresAbzahlung() {
+    const resultImmoData = this.resultImmoDataSignal();
+
+    this.resultImmoDataSignal.update((currentData) => ({
+      ...currentData,
+      jahresAbzahlung:
+        resultImmoData.darlehensbetrag !== null && resultImmoData.bankrateProJahr !== null
+          ? Number((resultImmoData.darlehensbetrag / resultImmoData.bankrateProJahr).toFixed(2))
           : null,
     }));
   }

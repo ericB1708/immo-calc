@@ -427,6 +427,45 @@ export class PdfExportService {
         text: `${resultData.bankrateProJahr} / 12 = ${resultData.bankrateProMonat}`,
         style: 'formulaNumbers',
       },
+      {
+        canvas: [
+          { type: 'line', x1: 0, y1: 0, x2: 230, y2: 0, lineWidth: 0.5, lineColor: '#e5e7eb' },
+        ],
+        margin: [0, 10, 0, 10],
+      },
+      {
+        text: `Abzahlungsdauer (Jahre): ${this.formatCur(resultData.jahresAbzahlung)}`,
+        style: 'resultHighlight',
+      },
+      { text: 'Formel:', style: 'formulaLabel' },
+      {
+        text: 'Darlehensbetrag / Bankrate (pro Jahr) ',
+        style: 'formulaText',
+      },
+      {
+        text: `${resultData.darlehensbetrag} / ${resultData.bankrateProJahr} = ${resultData.jahresAbzahlung}`,
+        style: 'formulaNumbers',
+      },
+
+      {
+        canvas: [
+          { type: 'line', x1: 0, y1: 0, x2: 230, y2: 0, lineWidth: 0.5, lineColor: '#e5e7eb' },
+        ],
+        margin: [0, 10, 0, 10],
+      },
+      {
+        text: `Abzahlungsdauer (Monate): ${this.formatCur(resultData.monateAbzahlung)}`,
+        style: 'resultHighlight',
+      },
+      { text: 'Formel:', style: 'formulaLabel' },
+      {
+        text: 'Darlehensbetrag / Bankrate (pro Monat) ',
+        style: 'formulaText',
+      },
+      {
+        text: `${resultData.darlehensbetrag} / ${resultData.bankrateProMonat} = ${resultData.monateAbzahlung}`,
+        style: 'formulaNumbers',
+      },
 
       { text: 'Direktkosten aufgesplittet', style: 'subHeader' },
       {

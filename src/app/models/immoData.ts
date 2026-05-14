@@ -40,6 +40,8 @@ export interface resultImmoData {
   darlehensbetragResultInfoText: number | null;
   hausGeldNichtUmlagefaehig: number | null;
   hausGeldNichtUmlagefaehigWarning: boolean;
+  monateAbzahlung: number | null;
+  jahresAbzahlung: number | null;
 }
 
 export interface PinnedData {
