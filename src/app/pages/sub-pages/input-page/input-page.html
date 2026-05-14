@@ -18,7 +18,7 @@
   <h1>Objekt & Finanzierung</h1>
   <app-input-container
     inputName="Eigenkapital (€)"
-    [placeHolderValue]="1000000"
+    placeHolderValue="100.000,00"
     [value]="calcDataService.immoDataSignal().eigenkapital"
     (valueChange)="calcDataService.updateValue('eigenkapital', $event)"
   ></app-input-container>
@@ -50,19 +50,19 @@
 
   <app-input-container
     inputName="Kaufpreis (€)"
-    [placeHolderValue]="578000"
+    placeHolderValue="578.000,00"
     [value]="calcDataService.immoDataSignal().kaufpreis"
     (valueChange)="calcDataService.updateValue('kaufpreis', $event)"
   ></app-input-container>
   <app-input-container
     inputName="Wohnfläche (m²)"
-    [placeHolderValue]="280"
+    placeHolderValue="280"
     [value]="calcDataService.immoDataSignal().wohnflaeche"
     (valueChange)="calcDataService.updateValue('wohnflaeche', $event)"
   ></app-input-container>
   <app-input-container
     inputName="Miete/m² (€)"
-    [placeHolderValue]="8.5"
+    placeHolderValue="8,5"
     [value]="calcDataService.immoDataSignal().mieteProQm"
     (valueChange)="calcDataService.updateValue('mieteProQm', $event)"
   ></app-input-container>
@@ -70,7 +70,7 @@
   <app-input-container
     *ngIf="calcDataService.immoDataSignal().objektTyp == 'wohnung'"
     inputName="Hausgeld (gesamt)"
-    [placeHolderValue]="200"
+    placeHolderValue="200,00"
     [value]="calcDataService.immoDataSignal().hausgeld"
     (valueChange)="calcDataService.updateValue('hausgeld', $event)"
   ></app-input-container>
@@ -78,7 +78,7 @@
   <div class="slider-container" *ngIf="calcDataService.immoDataSignal().objektTyp == 'wohnung'">
     <app-input-container
       inputName="Nicht umlagefähig (%)"
-      [placeHolderValue]="30"
+      placeHolderValue="30"
       [value]="calcDataService.immoDataSignal().hausgeldNichtUmlagefaehigProzentaneil"
       [higlightTitle]="!calcDataService.immoDataSignal().hausgeldNichtUmlagefaehigisEingabe"
       (valueChange)="calcDataService.updateValue('hausgeldNichtUmlagefaehigProzentaneil', $event)"
@@ -93,7 +93,7 @@
     </mat-slide-toggle>
     <app-input-container
       inputName="Nicht umlagefähig (€)"
-      [placeHolderValue]="60"
+      placeHolderValue="60,00"
       [value]="calcDataService.immoDataSignal().hausGeldNichtUmlagefaehigEingabe"
       [higlightTitle]="calcDataService.immoDataSignal().hausgeldNichtUmlagefaehigisEingabe"
       (valueChange)="calcDataService.updateValue('hausGeldNichtUmlagefaehigEingabe', $event)"
@@ -113,7 +113,7 @@
   <div class="slider-container">
     <app-input-container
       inputName="€ Pro QM"
-      [placeHolderValue]="2.0"
+      placeHolderValue="2,00"
       [value]="calcDataService.immoDataSignal().instandhaltungProQw"
       [higlightTitle]="!calcDataService.immoDataSignal().instandhaltungisPauschal"
       (valueChange)="calcDataService.updateValue('instandhaltungProQw', $event)"
@@ -128,7 +128,7 @@
     </mat-slide-toggle>
     <app-input-container
       inputName="€ Pauschal"
-      [placeHolderValue]="300"
+      placeHolderValue="300,00"
       [value]="calcDataService.immoDataSignal().instandhaltungPauschal"
       [higlightTitle]="calcDataService.immoDataSignal().instandhaltungisPauschal"
       (valueChange)="calcDataService.updateValue('instandhaltungPauschal', $event)"
@@ -137,32 +137,32 @@
   <h1>Bank</h1>
   <app-input-container
     inputName="Zinssatz (%)"
-    [placeHolderValue]="4"
+    placeHolderValue="4,0"
     [value]="calcDataService.immoDataSignal().zinssatz"
     (valueChange)="calcDataService.updateValue('zinssatz', $event)"
   ></app-input-container>
   <app-input-container
     inputName="Tilgung (%)"
-    [placeHolderValue]="1.5"
+    placeHolderValue="1,5"
     [value]="calcDataService.immoDataSignal().tilgung"
     (valueChange)="calcDataService.updateValue('tilgung', $event)"
   ></app-input-container>
   <h1>Kaufnebenkosten</h1>
   <app-input-container
     inputName="Grunderwerbsteuer (%)"
-    [placeHolderValue]="5"
+    placeHolderValue="5,0"
     [value]="calcDataService.immoDataSignal().grunderwerbsteuer"
     (valueChange)="calcDataService.updateValue('grunderwerbsteuer', $event)"
   ></app-input-container>
   <app-input-container
     inputName="Notar & Grundbuch (%)"
-    [placeHolderValue]="2"
+    placeHolderValue="2,0"
     [value]="calcDataService.immoDataSignal().notarUndGrundbuch"
     (valueChange)="calcDataService.updateValue('notarUndGrundbuch', $event)"
   ></app-input-container>
   <app-input-container
     inputName="Maklerprovision (%)"
-    [placeHolderValue]="4.2"
+    placeHolderValue="4,2"
     [value]="calcDataService.immoDataSignal().maklerprovision"
     (valueChange)="calcDataService.updateValue('maklerprovision', $event)"
   ></app-input-container>
